@@ -8,6 +8,7 @@ public class UIManager : MonoBehaviour
     public static UIManager instance; // 싱글톤을 할당할 전역 변수
     public GameObject settingPanel;
     public GameObject missionPanel;
+    public GameObject animalCollectionPanel;
 
     // 게임 시작과 동시에 싱글톤을 구성
     void Awake() {
@@ -43,6 +44,10 @@ public class UIManager : MonoBehaviour
         // missionPanel이 활성화되어 있으면
         if (missionPanel.activeSelf == true) {
             missionPanel.SetActive(false);
+        }
+        // animalCollectionPanel이 활성화되어 있으면
+        if (animalCollectionPanel.activeSelf == true) {
+            animalCollectionPanel.SetActive(false);
         }
     }
 }
