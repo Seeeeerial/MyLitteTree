@@ -9,6 +9,8 @@ public class UIManager : MonoBehaviour
     public GameObject settingPanel;
     public GameObject missionPanel;
     public GameObject animalCollectionPanel;
+    public GameObject fruitPanel;
+    public Text moneyText;
 
     // 게임 시작과 동시에 싱글톤을 구성
     void Awake() {
@@ -32,6 +34,12 @@ public class UIManager : MonoBehaviour
     void Update() {
         // 날씨
         // 시간
+
+    }
+
+    // 재화 갱신
+    public void moneyUpdate(int money) {
+        moneyText.text = "재화 : " + money;
     }
 
     // 미션, 설정 등의 Panel이 활성화되어 있으면 비활성화
@@ -48,6 +56,10 @@ public class UIManager : MonoBehaviour
         // animalCollectionPanel이 활성화되어 있으면
         if (animalCollectionPanel.activeSelf == true) {
             animalCollectionPanel.SetActive(false);
+        }
+        // fruitPanel이 활성화 되어 있으면
+        if (fruitPanel.activeSelf == true) {
+            fruitPanel.SetActive(false);
         }
     }
 }
