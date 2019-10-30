@@ -6,13 +6,13 @@ public class TreeManager : MonoBehaviour
 {
     public GameObject treeMenu;
     private bool menuOpen = false;
+	private bool isOn = false;
 
     void Start()
     {
         
     }
 
-    // Update is called once per frame
     void Update()
     {
         MenuAnimation();
@@ -22,16 +22,22 @@ public class TreeManager : MonoBehaviour
     {
         if (menuOpen && treeMenu.transform.localScale.x < 1)
             treeMenu.transform.localScale += new Vector3(0.1f, 0.1f, 0.1f);
-        if (!(menuOpen) && treeMenu.transform.localScale.x > 0)
+        if (!(menuOpen) && treeMenu.transform.localScale.x > 0.0f)
             treeMenu.transform.localScale -= new Vector3(0.1f, 0.1f, 0.1f);
-        if (treeMenu.transform.localScale.x == 0)
-            treeMenu.SetActive(false);
+        if (treeMenu.transform.localScale.x <= 0 && isOn)
+		{
+			treeMenu.SetActive(false);
+			isOn = false;
+		}
+            
     }
 
-    public void Touched()       //나무를 터치 했을 때 메뉴를 여는 함수
+    public void MenuTouched()       //나무를 터치 했을 때 메뉴를 여는 함수
     {
-        treeMenu.SetActive(true);
+		treeMenu.transform.localScale = new Vector3(0, 0, 0);
+		treeMenu.SetActive(true);
         menuOpen = true;
+		isOn = true;
     }
     public void MenuClosed()        //메뉴를 닫기 했을 때 실행되는 함수
     {
