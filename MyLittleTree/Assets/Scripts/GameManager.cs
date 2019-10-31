@@ -6,6 +6,9 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance; // 싱글톤을 할당할 전역 변수
 
+    // MyLittleTree 식별자
+    private string id = "MyLittleTree";
+
     // 재화
     public int money;
     // 요정의 축복 소지량
@@ -29,6 +32,16 @@ public class GameManager : MonoBehaviour
             Debug.LogWarning("씬에 두개 이상의 게임 매니저가 존재합니다!");
             Destroy(gameObject);
         }
+
+        // 게임 데이터 불러오기
+        LoadGameData();
+
+        
+    }
+
+    void Start() {
+        // 처음 실행될 때 저장되었던 재화를 불러와서 게임 창에 갱신
+        UIManager.instance.moneyUpdate(money);
     }
 
     // Update is called once per frame
@@ -50,6 +63,29 @@ public class GameManager : MonoBehaviour
     private void SetMoney(int money) {
         this.money = money;
         UIManager.instance.moneyUpdate(money);
+        SaveGameData();
     }
 
+    // 게임 정보 저장
+    public void SaveGameData() {
+        // 재화를 저장
+        PlayerPrefs.SetInt(id + "Money", money);
+        Debug.Log("재화 저장");
+    }
+
+    // 게임 정보 불러오기
+    public void LoadGameData() {
+        // 재화를 불러오기
+        money = PlayerPrefs.GetInt(id + "Money");
+        Debug.Log("재화 불러오기");
+    }
+
+    // 게임 정보 초기화
+    public void ResetGameData() {
+        // 모든 키 값을 제거
+        PlayerPrefs.DeleteAll();
+        Debug.Log("게임 초기화");
+        money = 0;
+        UIManager.instance.moneyUpdate(money);
+    }
 }

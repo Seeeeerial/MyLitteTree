@@ -12,6 +12,13 @@ public class UIManager : MonoBehaviour
     public GameObject fruitPanel;
     public Text moneyText;
 
+    public Button[] fruitButton;
+    public Text[] fruitButtonText;
+    // 열매 버튼 밑의 남은 시간 텍스트
+    public Text[] remainingTimeText;
+
+    private int index;
+
     // 게임 시작과 동시에 싱글톤을 구성
     void Awake() {
         // 싱글톤 변수 instance가 비어있는가?
@@ -29,6 +36,7 @@ public class UIManager : MonoBehaviour
             Debug.LogWarning("씬에 두개 이상의 게임 매니저가 존재합니다!");
             Destroy(gameObject);
         }
+
     }
 
     void Update() {
@@ -62,4 +70,50 @@ public class UIManager : MonoBehaviour
             fruitPanel.SetActive(false);
         }
     }
+
+    // 열매를 심음
+    // 매개변수로 열매의 이름을 받음
+    public void OnFruitPlantingButtonClick(string fruitName) {
+        Fruit fruit = fruitButton[index].GetComponent<Fruit>();
+
+        // 열매 종류에 맞게 fruit 스크립트 필드 초기 설정
+        fruit.Set(fruitName);
+
+        // 열매 패널 닫기
+        fruitPanel.SetActive(false);
+    }
+
+    // 과일 버튼을 누르면 호출
+    // 매개변수로 열매 버튼의 id(식별자를 받음 -> index)
+    public void OnFruitButtonClick(int idx) {
+        index = idx;
+
+        Fruit fruit = fruitButton[index].GetComponent<Fruit>();
+
+        // 열매가 심어져 있지 않은 경우 -> 열매 선택 창 오픈
+        if (fruit.fruitName == "") {
+            if (fruitPanel.activeSelf == false) {
+                PanelDeactivation();
+                fruitPanel.SetActive(true);
+            }
+        }
+        // 열매가 심어져 있는 경우 -> 수확
+        else if (fruit.harvestable == true) {
+            // 재화 증가
+            GameManager.instance.AddMoney((int)fruit.sellingPrice);
+
+            // 필드 초기화
+            fruit.Reset();
+
+        }
+    }
+
+    // 열매 창의 X 버튼을 누르면 호출
+    public void OnFruitCloseButtonClick() {
+        fruitPanel.SetActive(false);
+    }
+
+
+
+
 }
