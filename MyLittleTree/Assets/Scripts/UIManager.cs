@@ -46,7 +46,7 @@ public class UIManager : MonoBehaviour
     }
 
     // 재화 갱신
-    public void moneyUpdate(int money) {
+    public void UpdateMoney(int money) {
         moneyText.text = "재화 : " + money;
     }
 
@@ -108,12 +108,52 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    // 열매 창의 X 버튼을 누르면 호출
-    public void OnFruitCloseButtonClick() {
-        fruitPanel.SetActive(false);
+    // 미션 버튼을 누르면 호출
+    public void OnUIButtonClick(string panelName) {
+        GameObject panel = null;
+
+        switch (panelName) {
+            case "Fruit":
+                panel = fruitPanel;
+                break;
+            case "Mission":
+                panel = missionPanel;
+                break;
+            case "AnimalCollection":
+                panel = animalCollectionPanel;
+                break;
+            case "Setting":
+                panel = settingPanel;
+                break;
+            default:
+                // 잘못된 panelName이 온 경우
+                break;
+        }
+
+        if (panel.activeSelf == false) {
+            PanelDeactivation();
+            panel.SetActive(true);
+        }
     }
 
-
-
-
+    // 열매 창의 X 버튼을 누르면 호출
+    public void OnCloseButtonClick(string panelName) {
+        switch (panelName) {
+            case "Fruit":
+                fruitPanel.SetActive(false);
+                break;
+            case "Mission":
+                missionPanel.SetActive(false);
+                break;
+            case "AnimalCollection":
+                animalCollectionPanel.SetActive(false);
+                break;
+            case "Setting":
+                settingPanel.SetActive(false);
+                break;
+            default:
+                // 잘못된 panelName이 온 경우
+                break;
+        }
+    }
 }

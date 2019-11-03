@@ -8,6 +8,9 @@ public class Fruit : MonoBehaviour
     public Button fruitButton;
     public Text fruitButtonText;
     public Text remainingTimeText;
+    private Image fruitButtonImage;
+
+    private Sprite basicImage;
 
     // 심어져 있는 과일 이름
     public string fruitName;
@@ -24,11 +27,15 @@ public class Fruit : MonoBehaviour
     public int id;
 
     // 사과 정보
-    public float applePurchasePrice = 0f;
-    public float appleSellingPrice = 300f;
-    public float appleRemainingTime = 10f;
+    public const float applePurchasePrice = 0f;
+    public const float appleSellingPrice = 300f;
+    public const float appleRemainingTime = 10f;
     
     void Start() {
+        fruitButtonImage = fruitButton.GetComponent<Image>();
+
+        basicImage = fruitButtonImage.sprite;
+
         fruitName = "";
         blessingCount = 0;
         sellingPrice = 0f;
@@ -78,7 +85,8 @@ public class Fruit : MonoBehaviour
             // GameManager.instance.SubMoney(applePurchasePrice); -> 0원 이므로 실행하지 않음
 
             // fruitName 화면에 갱신
-            fruitButtonText.text = fruitName;
+            //fruitButtonText.text = fruitName;
+            fruitButtonImage.sprite = Resources.Load<Sprite>("Images/Apple");
         }
         else if (fName == "Orange") {
 
@@ -100,14 +108,19 @@ public class Fruit : MonoBehaviour
 
         // 열매 버튼 텍스트 화면에서 초기화
         fruitButtonText.text = "";
+
+        fruitButtonImage.sprite = basicImage;
     }
     
     // 요정의 축복 주기
-    public void AddBlessing(int num) {
+    public void UseBlessing(int num) {
         blessingCount += num;
 
         // 가격 증가
         sellingPrice *= 1.3f;
+
+        // 축복 감소
+        GameManager.instance.SubBlessing();
     }
 
 }

@@ -43,4 +43,9 @@ public class TreeManager : MonoBehaviour
     {
         menuOpen = false;
     }
+
+    // 나무 업그레이드 버튼을 클릭할 경우
+    public void OnUpgradeButtonClick() {
+
+    }
 }
