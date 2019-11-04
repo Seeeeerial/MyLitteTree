@@ -7,7 +7,13 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance; // 싱글톤을 할당할 전역 변수
 
+    // 계절 이미지 컴포넌트
+    public Image seasonImage;
+
     public Text seasonText;
+
+    // 계절 이미지
+    public Sprite[] seasonSprite;
 
     // MyLittleTree 식별자
     public string id = "MyLittleTree";
@@ -61,6 +67,8 @@ public class GameManager : MonoBehaviour
         UIManager.instance.UpdateMoney(money);
 
         seasonText.text = seasonName[seasonIndex];
+        // 배경 이미지 변경
+        seasonImage.sprite = seasonSprite[seasonIndex];
     }
 
     // Update is called once per frame
@@ -71,10 +79,17 @@ public class GameManager : MonoBehaviour
             seasonIndex = (seasonIndex + 1) % 4;
             seasonText.text = seasonName[seasonIndex];
             nextSeasonRemainingTime = 0f;
+            // 배경 이미지 변경
+            seasonImage.sprite = seasonSprite[seasonIndex];
+            // 계절 index 저장
+            PlayerPrefs.SetInt(id + "SeasonIndex", seasonIndex);
         }
         else {
             nextSeasonRemainingTime += Time.deltaTime;
         }
+
+        // 계절 변화 남은 시간 저장
+        PlayerPrefs.SetFloat(id + "NextSeasonRemainingTime", nextSeasonRemainingTime);
     }
 
     // 재화를 얻음
@@ -101,14 +116,20 @@ public class GameManager : MonoBehaviour
     public void SaveGameData() {
         // 재화를 저장
         PlayerPrefs.SetInt(id + "Money", money);
-        Debug.Log("재화 저장");
+        // 계절 index 저장
+        PlayerPrefs.SetInt(id + "SeasonIndex", seasonIndex);
+        // 계절 변화 남은 시간 저장
+        PlayerPrefs.SetFloat(id + "NextSeasonRemainingTime", nextSeasonRemainingTime);
     }
 
     // 게임 정보 불러오기
     public void LoadGameData() {
         // 재화를 불러오기
-        money = PlayerPrefs.GetInt(id + "Money");
-        Debug.Log("재화 불러오기");
+        money = PlayerPrefs.GetInt(id + "Money", 0);
+        // 계절 index 불러오기
+        seasonIndex =  PlayerPrefs.GetInt(id + "SeasonIndex", 0);
+        // 계절 변화 남은 시간 불러오기
+        nextSeasonRemainingTime = PlayerPrefs.GetFloat(id + "NextSeasonRemainingTime", seasonalChangeTime);
     }
 /*
     // 돈, 축복 데이터 저장

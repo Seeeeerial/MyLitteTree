@@ -47,7 +47,7 @@ public class UIManager : MonoBehaviour
 
     // 재화 갱신
     public void UpdateMoney(int money) {
-        moneyText.text = "재화 : " + money;
+        moneyText.text = "" + money;
     }
 
     // 미션, 설정 등의 Panel이 활성화되어 있으면 비활성화

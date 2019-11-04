@@ -36,7 +36,7 @@ public class Missions : MonoBehaviour
         나무 업그레이드 미션 달성 여부
         max : 나무 업그레이드 미션 수
     */
-    private bool[] treeAchievement = new bool[4];
+    private bool[] treeAchievement = new bool[5];
 
 
 

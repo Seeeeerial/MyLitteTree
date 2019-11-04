@@ -5,12 +5,16 @@ using UnityEngine.UI;
 
 public class Fruit : MonoBehaviour
 {
+    // 열매 버튼
     public Button fruitButton;
-    public Text fruitButtonText;
+    // 남은 시간 텍스트 컴포넌트
     public Text remainingTimeText;
-    private Image fruitButtonImage;
-
+    // 열매 버튼 이미지 컴포넌트
+    private Image fruitImage;
+    // 열매 이미지
+    public Sprite[] fruitSprite;
     private Sprite basicImage;
+
 
     // 심어져 있는 과일 이름
     public string fruitName;
@@ -23,18 +27,27 @@ public class Fruit : MonoBehaviour
     // 수확 가능 여부
     public bool harvestable;
 
-    // 열매 버튼 식별자(열매 버튼 배열의 index로 사용))
-    public int id;
-
     // 사과 정보
     public const float applePurchasePrice = 0f;
     public const float appleSellingPrice = 300f;
     public const float appleRemainingTime = 10f;
-    
-    void Start() {
-        fruitButtonImage = fruitButton.GetComponent<Image>();
 
-        basicImage = fruitButtonImage.sprite;
+    // 감 정보
+    public const float persimmon = 0f;
+
+    // 배 정보
+    public const float pear = 0f;
+
+    // 포도 정보
+    public const float grape = 0f;
+
+    // 한라봉 정보
+    public const float hallabong = 0f;
+
+    void Start() {
+        fruitImage = fruitButton.GetComponent<Image>();
+
+        basicImage = fruitImage.sprite;
 
         fruitName = "";
         blessingCount = 0;
@@ -59,7 +72,7 @@ public class Fruit : MonoBehaviour
         // 열매의 성장이 완료되면
         if (harvestable == false && remainingTime <= 0f) {
             harvestable = true;
-            fruitButton.interactable = true;
+            //fruitButton.interactable = true;
             
             // 남은 시간 텍스트 초기화
             remainingTimeText.text = "";
@@ -84,16 +97,14 @@ public class Fruit : MonoBehaviour
             // 구매가격만큼 소지금 감소
             // GameManager.instance.SubMoney(applePurchasePrice); -> 0원 이므로 실행하지 않음
 
-            // fruitName 화면에 갱신
-            //fruitButtonText.text = fruitName;
-            fruitButtonImage.sprite = Resources.Load<Sprite>("Images/Apple");
+            fruitImage.sprite = fruitSprite[0];
         }
         else if (fName == "Orange") {
 
         }
 
         // 열매 버튼 비활성화
-        fruitButton.interactable = false;
+        //fruitButton.interactable = false;
     }
  
     // 필드 초기화 함수
@@ -104,12 +115,10 @@ public class Fruit : MonoBehaviour
         sellingPrice = 0f;
         remainingTime = 0f;
         harvestable = false;
-        fruitButton.interactable = true;
+        //fruitButton.interactable = true;
 
-        // 열매 버튼 텍스트 화면에서 초기화
-        fruitButtonText.text = "";
 
-        fruitButtonImage.sprite = basicImage;
+        fruitImage.sprite = basicImage;
     }
     
     // 요정의 축복 주기

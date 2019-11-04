@@ -8,7 +8,7 @@ public class AnimalCollection : MonoBehaviour
     // 동물 이미지가 들어가는 오브젝트
     public Image[] image;
     // 동물 정보가 들어가는 오브젝트
-    public Text[] impormation;
+    public Text[] impormationText;
     // 동물 획득 여부
     private bool[] haveAnimal;
 
