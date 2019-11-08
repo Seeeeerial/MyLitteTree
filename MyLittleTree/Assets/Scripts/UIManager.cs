@@ -6,18 +6,31 @@ using UnityEngine.UI;
 public class UIManager : MonoBehaviour
 {   
     public static UIManager instance; // 싱글톤을 할당할 전역 변수
+
+    // 환경설정 패널
     public GameObject settingPanel;
+    // 도전과제 패널
     public GameObject missionPanel;
+    // 동물도감 패널
     public GameObject animalCollectionPanel;
+    // 열매 패널
     public GameObject fruitPanel;
+    // 게임 종료 패널(뒤로가기 버튼 클릭 시 사용)
+    public GameObject gameEndPanel;
+    // 나무 패널
+    public GameObject treePanel;
+
+    // 재화 텍스트 컴포넌트
     public Text moneyText;
-
-    public Button[] fruitButton;
-    public Text[] fruitButtonText;
-    // 열매 버튼 밑의 남은 시간 텍스트
-    public Text[] remainingTimeText;
-
+    // 열매 버튼(자료형을 GameObject를 사용한 이유는 Button을 사용하게 되면 SetActive 메서드를 호출할 수 없기 때문)
+    public GameObject[] fruitButton;
+    // 열매 패널을 오픈한 열매 버튼 index -> 열매를 심으면 현재 index에 해당하는 열매 버튼에만 열매가 심어짐
     private int index;
+
+    // 동물 버튼
+    public Button[] animalButton;
+    // 요정의 축복 주기 버튼
+    public Button blessingButton;
 
     // 게임 시작과 동시에 싱글톤을 구성
     void Awake() {
@@ -125,6 +138,9 @@ public class UIManager : MonoBehaviour
             case "Setting":
                 panel = settingPanel;
                 break;
+            case "Tree":
+                panel = treePanel;
+                break;
             default:
                 // 잘못된 panelName이 온 경우
                 break;
@@ -150,6 +166,12 @@ public class UIManager : MonoBehaviour
                 break;
             case "Setting":
                 settingPanel.SetActive(false);
+                break;
+            case "Tree":
+                treePanel.SetActive(false);
+                break;
+            case "GameEnd":
+                gameEndPanel.SetActive(false);
                 break;
             default:
                 // 잘못된 panelName이 온 경우

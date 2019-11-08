@@ -5,15 +5,19 @@ using UnityEngine.UI;
 
 public class Fruit : MonoBehaviour
 {
+    // 미션 컴포넌트
+    public Mission mission;
+
     // 열매 버튼
     public Button fruitButton;
     // 남은 시간 텍스트 컴포넌트
     public Text remainingTimeText;
     // 열매 버튼 이미지 컴포넌트
-    private Image fruitImage;
+    private Image fruitButtonImage;
     // 열매 이미지
     public Sprite[] fruitSprite;
-    private Sprite basicImage;
+    // 열매 기본 이미지
+    private Sprite basicSprite;
 
 
     // 심어져 있는 과일 이름
@@ -27,27 +31,43 @@ public class Fruit : MonoBehaviour
     // 수확 가능 여부
     public bool harvestable;
 
+    // 열매 버튼 식별자
+    //저장/불러오기 식별자 구분
+    // 1부터 시작
+    public int fruitId;
+
     // 사과 정보
+    // 사과 구매가
     public const float applePurchasePrice = 0f;
+    // 사과 판매가
     public const float appleSellingPrice = 300f;
+    // 사과 성장 시간
     public const float appleRemainingTime = 10f;
 
     // 감 정보
-    public const float persimmon = 0f;
+    public const float persimmonPurchasePrice = 100f;
+    public const float persimmonSellingPrice = 500f;
+    public const float persimmonRemainingTime = 30f;
 
     // 배 정보
-    public const float pear = 0f;
+    public const float pearPurchasePrice = 300f;
+    public const float pearSellingPrice = 1000f;
+    public const float pearRemainingTime = 60f;
 
     // 포도 정보
-    public const float grape = 0f;
+    public const float grapePurchasePrice = 1000f;
+    public const float grapeSellingPrice = 3000f;
+    public const float grapeRemainingTime = 300f;
 
     // 한라봉 정보
-    public const float hallabong = 0f;
+    public const float hallabongPurchasePrice = 3000f;
+    public const float hallabongSellingPrice = 8000f;
+    public const float hallabongRemainingTime = 600f;
 
     void Start() {
-        fruitImage = fruitButton.GetComponent<Image>();
+        fruitButtonImage = fruitButton.GetComponent<Image>();
 
-        basicImage = fruitImage.sprite;
+        basicSprite = fruitButtonImage.sprite;
 
         fruitName = "";
         blessingCount = 0;
@@ -97,7 +117,7 @@ public class Fruit : MonoBehaviour
             // 구매가격만큼 소지금 감소
             // GameManager.instance.SubMoney(applePurchasePrice); -> 0원 이므로 실행하지 않음
 
-            fruitImage.sprite = fruitSprite[0];
+            fruitButtonImage.sprite = fruitSprite[0];
         }
         else if (fName == "Orange") {
 
@@ -118,7 +138,7 @@ public class Fruit : MonoBehaviour
         //fruitButton.interactable = true;
 
 
-        fruitImage.sprite = basicImage;
+        fruitButtonImage.sprite = basicSprite;
     }
     
     // 요정의 축복 주기

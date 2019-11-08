@@ -8,11 +8,12 @@ using UnityEngine.UI;
 */
 public class Animal : MonoBehaviour
 {
-    // 동물 클릭 시 실행할 애니메이터
-    private Animator animalAnimator;
-    // 동물 울음소리 오디오 소스
-    private AudioSource animalAudio;
+    // 환경설정 컴포넌트
+    // 효과음이 켜져있는지 확인하는 용도
+    public Setting setting;
 
+    // 동물 울음소리 오디오 소스 컴포넌트
+    private AudioSource animalAudio;
 
 
     // Start is called before the first frame update

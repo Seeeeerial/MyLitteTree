@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,9 +10,8 @@ public class GameManager : MonoBehaviour
 
     // 계절 이미지 컴포넌트
     public Image seasonImage;
-
+    // 계절 텍스트 컴포넌트(나중에 삭제)
     public Text seasonText;
-
     // 계절 이미지
     public Sprite[] seasonSprite;
 
@@ -32,10 +32,10 @@ public class GameManager : MonoBehaviour
 
     // 한 계절 당 주기
     private float seasonalChangeTime = 10f;
-
+    // 계절 이름(나중에 삭제)
     private string[] seasonName = {"봄", "여름", "가을", "겨울"};
 
-    private int seasonIndex = 0;
+    private int seasonIndex;
 
 
     // 게임 시작과 동시에 싱글톤을 구성
@@ -57,9 +57,12 @@ public class GameManager : MonoBehaviour
         }
 
         // 게임 데이터 불러오기
-        LoadGameData();
-
-        
+        // 재화를 불러오기
+        money = PlayerPrefs.GetInt(id + "Money", 0);
+        // 계절 index 불러오기
+        seasonIndex =  PlayerPrefs.GetInt(id + "SeasonIndex", 0);
+        // 계절 변화 남은 시간 불러오기
+        nextSeasonRemainingTime = PlayerPrefs.GetFloat(id + "NextSeasonRemainingTime", 0);
     }
 
     void Start() {
@@ -88,7 +91,7 @@ public class GameManager : MonoBehaviour
             nextSeasonRemainingTime += Time.deltaTime;
         }
 
-        // 계절 변화 남은 시간 저장
+        // 계절 변화 남은 시간 저장(한프레임마다 저장 -> 비효율적 -> 일정 주기로 저장되도록 변경(ex N초 마다 저장))
         PlayerPrefs.SetFloat(id + "NextSeasonRemainingTime", nextSeasonRemainingTime);
     }
 
@@ -105,32 +108,14 @@ public class GameManager : MonoBehaviour
     private void SetMoney(int money) {
         this.money = money;
         UIManager.instance.UpdateMoney(money);
-        SaveGameData();
+        // 재화를 저장
+        PlayerPrefs.SetInt(id + "Money", money);
     }
 
     public void SubBlessing() {
         blessing--;
     }
 
-    // 게임 정보 저장
-    public void SaveGameData() {
-        // 재화를 저장
-        PlayerPrefs.SetInt(id + "Money", money);
-        // 계절 index 저장
-        PlayerPrefs.SetInt(id + "SeasonIndex", seasonIndex);
-        // 계절 변화 남은 시간 저장
-        PlayerPrefs.SetFloat(id + "NextSeasonRemainingTime", nextSeasonRemainingTime);
-    }
-
-    // 게임 정보 불러오기
-    public void LoadGameData() {
-        // 재화를 불러오기
-        money = PlayerPrefs.GetInt(id + "Money", 0);
-        // 계절 index 불러오기
-        seasonIndex =  PlayerPrefs.GetInt(id + "SeasonIndex", 0);
-        // 계절 변화 남은 시간 불러오기
-        nextSeasonRemainingTime = PlayerPrefs.GetFloat(id + "NextSeasonRemainingTime", seasonalChangeTime);
-    }
 /*
     // 돈, 축복 데이터 저장
     public void SaveItemData(int money, int blessing) {
@@ -190,8 +175,21 @@ public class GameManager : MonoBehaviour
     public void ResetGameData() {
         // 모든 키 값을 제거
         PlayerPrefs.DeleteAll();
-        Debug.Log("게임 초기화");
-        money = 0;
-        UIManager.instance.UpdateMoney(money);
+        Debug.Log("게임 초기화");   // 나중에 지우기
+        money = 0;  // 나중에 지우기
+        UIManager.instance.UpdateMoney(money);  // 나중에 지우기
+
+        // 처음 씬 불러오기
+        LoadFirstScene();
+    }
+
+    // 처음 씬 불러오기
+    public void LoadFirstScene() {
+        SceneManager.LoadScene("FirstScene");
+    }
+
+    // 엔딩 씬 불러오기
+    public void LoadEndingScene() {
+        
     }
 }
