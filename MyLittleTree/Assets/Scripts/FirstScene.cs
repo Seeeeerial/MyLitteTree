@@ -22,7 +22,9 @@ public class FirstScene : MonoBehaviour
 
     // 게임 화면 클릭 시 호출
     public void OnScreenClick() {
+        // 나중에 게임 데이터가 없으면 튜토리얼 씬 이동으로 변경
 
+        LoadMainScene();
     }
 
     // 튜토리얼 씬 이동

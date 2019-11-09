@@ -150,20 +150,44 @@ public class TreeManager : MonoBehaviour
         }
 
         if (treeGrade == 1) {
-            // 열매 버튼 재배치
-            //UIManager.instance.fruitButton[0].GetComponent<
+            // 열매 버튼 3개 재배치
+            UIManager.instance.fruitButton[0].GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -59);
+            UIManager.instance.fruitButton[1].GetComponent<RectTransform>().anchoredPosition = new Vector2(-37.5f, -134);
+            UIManager.instance.fruitButton[2].GetComponent<RectTransform>().anchoredPosition = new Vector2(37.5f, -134);
         }
         else if (treeGrade == 2) {
-
+            // 열매 버튼 4개 재배치
+            UIManager.instance.fruitButton[0].GetComponent<RectTransform>().anchoredPosition = new Vector2(-37.5f, 0);
+            UIManager.instance.fruitButton[1].GetComponent<RectTransform>().anchoredPosition = new Vector2(52, 0);
+            UIManager.instance.fruitButton[2].GetComponent<RectTransform>().anchoredPosition = new Vector2(-52, -84);
+            UIManager.instance.fruitButton[3].GetComponent<RectTransform>().anchoredPosition = new Vector2(62.5f, -84);
         }
         else if (treeGrade == 3) {
-
+            // 열매 버튼 5개 재배치
+            UIManager.instance.fruitButton[0].GetComponent<RectTransform>().anchoredPosition = new Vector2(-52, 65);
+            UIManager.instance.fruitButton[1].GetComponent<RectTransform>().anchoredPosition = new Vector2(52, 65);
+            UIManager.instance.fruitButton[2].GetComponent<RectTransform>().anchoredPosition = new Vector2(-87.5f, -38);
+            UIManager.instance.fruitButton[3].GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -21);
+            UIManager.instance.fruitButton[4].GetComponent<RectTransform>().anchoredPosition = new Vector2(87.5f, -38);
         }
         else if (treeGrade == 4) {
-
+            // 열매 버튼 6개 재배치
+            UIManager.instance.fruitButton[0].GetComponent<RectTransform>().anchoredPosition = new Vector2(-87.5f, 112.5f);
+            UIManager.instance.fruitButton[1].GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 160);
+            UIManager.instance.fruitButton[2].GetComponent<RectTransform>().anchoredPosition = new Vector2(87.5f, 112.5f);
+            UIManager.instance.fruitButton[3].GetComponent<RectTransform>().anchoredPosition = new Vector2(-112.5f, 9);
+            UIManager.instance.fruitButton[4].GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 47);
+            UIManager.instance.fruitButton[5].GetComponent<RectTransform>().anchoredPosition = new Vector2(112.5f, 9);
         }
         else if (treeGrade == 5) {
-
+            // 열매 버튼 7개 재배치
+            UIManager.instance.fruitButton[0].GetComponent<RectTransform>().anchoredPosition = new Vector2(-62.5f, 200);
+            UIManager.instance.fruitButton[1].GetComponent<RectTransform>().anchoredPosition = new Vector2(62.5f, 200);
+            UIManager.instance.fruitButton[2].GetComponent<RectTransform>().anchoredPosition = new Vector2(-105, 105);
+            UIManager.instance.fruitButton[3].GetComponent<RectTransform>().anchoredPosition = new Vector2(105, 105);
+            UIManager.instance.fruitButton[4].GetComponent<RectTransform>().anchoredPosition = new Vector2(-100, -10);
+            UIManager.instance.fruitButton[5].GetComponent<RectTransform>().anchoredPosition = new Vector2(0, 50);
+            UIManager.instance.fruitButton[6].GetComponent<RectTransform>().anchoredPosition = new Vector2(100, -10);
         }
     }
 
@@ -177,10 +201,6 @@ public class TreeManager : MonoBehaviour
         PlayerPrefs.SetInt(GameManager.instance.id + "TreeGrade", treeGrade);
         // 활성화 열매 버튼 개수 변경
         maxFruitCount = treeGrade + 2;
-
-        TreePanelUpdate();
-        TreeRelocation();
-        FruitRelocation();
     }
 
     // 나무 업그레이드 버튼을 클릭할 경우
@@ -192,55 +212,9 @@ public class TreeManager : MonoBehaviour
         }
 
         TreeUpgrade();
-
-        // 1단계 -> 2단계
-        if (treeGrade == 1) {
-            // 나무 패널의 나무 이미지 변경
-
-            // 나무 패널의 나무 정보 변경
-            
-            // 메인 화면의 나무 이미지 변경
-            // 메인 화면의 나무 크기 변경
-            // 메인 화면의 나무 위치 변경
-
-            // 열매 버튼 1개 활성화
-            // 열매 버튼 재배치
-        }
-        // 2단계 -> 3단계
-        else if (treeGrade == 2) {
-            // 나무 패널의 나무 이미지 변경
-            // 나무 패널의 나무 정보 변경
-            
-            // 메인 화면의 나무 이미지 변경
-            // 메인 화면의 나무 크기 변경
-            // 메인 화면의 나무 위치 변경
-
-            // 열매 버튼 1개 활성화
-            // 열매 버튼 재배치
-        }
-        // 3단계 -> 4단계
-        else if (treeGrade == 3) {
-            // 나무 패널의 나무 이미지 변경
-            // 나무 패널의 나무 정보 변경
-            
-            // 메인 화면의 나무 이미지 변경
-            // 메인 화면의 나무 크기 변경
-            // 메인 화면의 나무 위치 변경
-
-            // 열매 버튼 1개 활성화
-            // 열매 버튼 재배치
-        }
-        // 4단계 -> 5단계
-        else if (treeGrade == 4) {
-            // 나무 패널의 나무 이미지 변경
-            // 나무 패널의 나무 정보 변경
-            
-            // 메인 화면의 나무 이미지 변경
-            // 메인 화면의 나무 크기 변경
-            // 메인 화면의 나무 위치 변경
-
-            // 열매 버튼 1개 활성화
-            // 열매 버튼 재배치
-        }
+        
+        TreePanelUpdate();
+        TreeRelocation();
+        FruitRelocation();
     }
 }
