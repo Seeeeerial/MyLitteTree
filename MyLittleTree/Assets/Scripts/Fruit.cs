@@ -32,48 +32,51 @@ public class Fruit : MonoBehaviour
     public bool harvestable;
 
     // 열매 버튼 식별자
-    //저장/불러오기 식별자 구분
+    // 저장/불러오기 식별자 구분
     // 1부터 시작
     public int fruitId;
-
-    // 사과 정보
-    // 사과 구매가
-    public const float applePurchasePrice = 0f;
-    // 사과 판매가
-    public const float appleSellingPrice = 300f;
-    // 사과 성장 시간
-    public const float appleRemainingTime = 10f;
-
-    // 감 정보
-    public const float persimmonPurchasePrice = 100f;
-    public const float persimmonSellingPrice = 500f;
-    public const float persimmonRemainingTime = 30f;
-
-    // 배 정보
-    public const float pearPurchasePrice = 300f;
-    public const float pearSellingPrice = 1000f;
-    public const float pearRemainingTime = 60f;
-
-    // 포도 정보
-    public const float grapePurchasePrice = 1000f;
-    public const float grapeSellingPrice = 3000f;
-    public const float grapeRemainingTime = 300f;
-
-    // 한라봉 정보
-    public const float hallabongPurchasePrice = 3000f;
-    public const float hallabongSellingPrice = 8000f;
-    public const float hallabongRemainingTime = 600f;
 
     void Start() {
         fruitButtonImage = fruitButton.GetComponent<Image>();
 
         basicSprite = fruitButtonImage.sprite;
-
+/*
         fruitName = "";
         blessingCount = 0;
         sellingPrice = 0f;
         remainingTime = 0f;
         harvestable = false;
+*/
+        // 열매 이름 불러오기
+        fruitName =  PlayerPrefs.GetString(GameManager.instance.id + "FruitName" + fruitId, "");
+        // 열매 축복 준 횟수 불러오기
+        blessingCount = PlayerPrefs.GetInt(GameManager.instance.id + "BlessingCount" + fruitId, 0);
+        // 열매 판개 가격 불러오기
+        sellingPrice = PlayerPrefs.GetFloat(GameManager.instance.id + "SellingPrice" + fruitId, 0);
+        // 열매 성장 남은 시간 불러오기
+        remainingTime = PlayerPrefs.GetFloat(GameManager.instance.id + "RemainingTime" + fruitId, 0);
+        // 열매 수확 가능 정보 불러오기
+        harvestable = PlayerPrefs.GetInt(GameManager.instance.id + "Harvestable" + fruitId, 0) == 1 ? true : false;
+
+        // 열매 이미지 스프라이트 변경
+        if (fruitName != "") {
+            if (fruitName == "Apple") {
+                fruitButtonImage.sprite = fruitSprite[0];
+            }
+            else if (fruitName == "Pear") {
+                fruitButtonImage.sprite = fruitSprite[1];
+            }
+            else if (fruitName == "Persimmon") {
+                fruitButtonImage.sprite = fruitSprite[2];
+            }
+            else if (fruitName == "Grape") {
+                fruitButtonImage.sprite = fruitSprite[3];
+            }
+            else if (fruitName == "Hallabong") {
+                fruitButtonImage.sprite = fruitSprite[4];
+            }
+        }
+
         fruitButton.interactable = true;
     }
 
@@ -89,10 +92,16 @@ public class Fruit : MonoBehaviour
         // 시간이 흐름
         remainingTime -= Time.deltaTime;
 
+        // 열매 성장 남은 시간 저장
+        PlayerPrefs.SetFloat(GameManager.instance.id + "RemainingTime" + fruitId, remainingTime);
+
         // 열매의 성장이 완료되면
         if (harvestable == false && remainingTime <= 0f) {
             harvestable = true;
             //fruitButton.interactable = true;
+
+            // 열매 수확 가능 정보 저장
+            PlayerPrefs.SetInt(GameManager.instance.id + "Harvestable" + fruitId, harvestable == true ? 1 : 0);
             
             // 남은 시간 텍스트 초기화
             remainingTimeText.text = "";
@@ -103,28 +112,58 @@ public class Fruit : MonoBehaviour
             // 남은 시간 표시
             remainingTimeText.text = (int)remainingTime + "초";
         }
-        
+    }
+
+    // 게임 오브젝트가 활성화될 때마다 호출
+    void OnEnable() {
+
     }
 
     // 필수 설정 함수
     // UIManager.cs에서 호출
     public void Set(string fName) {
+        int idx = -1;
+
+        fruitName = fName;
+        blessingCount = 0;
+
         if (fName == "Apple") {
-            fruitName = fName;
-            blessingCount = 0;
-            sellingPrice = appleSellingPrice;
-            remainingTime = appleRemainingTime;
-            // 구매가격만큼 소지금 감소
-            // GameManager.instance.SubMoney(applePurchasePrice); -> 0원 이므로 실행하지 않음
-
-            fruitButtonImage.sprite = fruitSprite[0];
+            idx = 0;
         }
-        else if (fName == "Orange") {
-
+        else if (fName == "Pear") {
+            idx = 1;
+        }
+        else if (fName == "Persimmon") {
+            idx = 2;
+        }
+        else if (fName == "Grape") {
+            idx = 3;
+        }
+        else if (fName == "Hallabong") {
+            idx = 4;
+        }
+        else {
+            Debug.Log("열매 심기 실패");
+            return;
         }
 
-        // 열매 버튼 비활성화
-        //fruitButton.interactable = false;
+        sellingPrice = GameManager.instance.fruitSellingPrice[idx];
+        remainingTime = GameManager.instance.fruitRemainingTime[idx];
+        // 구매 가격만큼 소지금 감소
+        GameManager.instance.SubMoney(Mathf.RoundToInt(GameManager.instance.fruitPurchasePrice[idx]));
+        // 열매 이미지 스프라이트 변경
+        fruitButtonImage.sprite = fruitSprite[idx];
+
+        // 열매 이름 저장
+        PlayerPrefs.SetString(GameManager.instance.id + "FruitName" + fruitId, fruitName);
+        // 열매 축복 준 횟수 저장
+        PlayerPrefs.SetInt(GameManager.instance.id + "BlessingCount" + fruitId, blessingCount);
+        // 열매 판매 가격 저장
+        PlayerPrefs.SetFloat(GameManager.instance.id + "SellingPrice" + fruitId, sellingPrice);
+        // 열매 성장 남은 시간 저장
+        PlayerPrefs.SetFloat(GameManager.instance.id + "RemainingTime" + fruitId, remainingTime);
+        // 열매 수확 가능 정보 저장
+        PlayerPrefs.SetInt(GameManager.instance.id + "Harvestable" + fruitId, harvestable == true ? 1 : 0);
     }
  
     // 필드 초기화 함수
@@ -137,6 +176,16 @@ public class Fruit : MonoBehaviour
         harvestable = false;
         //fruitButton.interactable = true;
 
+        // 열매 이름 저장
+        PlayerPrefs.SetString(GameManager.instance.id + "FruitName" + fruitId, fruitName);
+        // 열매 축복 준 횟수 저장
+        PlayerPrefs.SetInt(GameManager.instance.id + "BlessingCount" + fruitId, blessingCount);
+        // 열매 판매 가격 저장
+        PlayerPrefs.SetFloat(GameManager.instance.id + "SellingPrice" + fruitId, sellingPrice);
+        // 열매 성장 남은 시간 저장
+        PlayerPrefs.SetFloat(GameManager.instance.id + "RemainingTime" + fruitId, remainingTime);
+        // 열매 수확 가능 정보 저장
+        PlayerPrefs.SetInt(GameManager.instance.id + "Harvestable" + fruitId, harvestable == true ? 1 : 0);
 
         fruitButtonImage.sprite = basicSprite;
     }
@@ -147,6 +196,9 @@ public class Fruit : MonoBehaviour
 
         // 가격 증가
         sellingPrice *= 1.3f;
+
+        // 열매 판매 가격 저장
+        PlayerPrefs.SetFloat(GameManager.instance.id + "SellingPrice" + fruitId, sellingPrice);
 
         // 축복 감소
         GameManager.instance.SubBlessing();

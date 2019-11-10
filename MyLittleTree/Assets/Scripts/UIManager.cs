@@ -27,6 +27,11 @@ public class UIManager : MonoBehaviour
     // 열매 패널을 오픈한 열매 버튼 index -> 열매를 심으면 현재 index에 해당하는 열매 버튼에만 열매가 심어짐
     private int index;
 
+    // 열매 패널의 심기 버튼
+    public Button[] fruitPlantingButton;
+    // 열매 패널의 가격 텍스트
+    public Text[] fruitInformationText;
+
     // 동물 버튼
     public Button[] animalButton;
     // 요정의 축복 주기 버튼
@@ -52,15 +57,65 @@ public class UIManager : MonoBehaviour
 
     }
 
-    void Update() {
-        // 날씨
-        // 시간
+    void Start() {
+        // 열매 정보 텍스트 갱신
+        for (int i = 0; i < fruitInformationText.Length; i++) {
+            fruitInformationText[i].text = "구매 가격 : " + GameManager.instance.fruitPurchasePrice[i] + 
+            "\n판매 가격 : " + GameManager.instance.fruitSellingPrice[i] + 
+            "\n성장 시간 : " + GameManager.instance.fruitRemainingTime[i];
+        }
 
+        FruitPlantingButtonUpdate();
+    }
+
+    void Update() {
+        if (Input.GetKey(KeyCode.Escape)) {
+            gameEndPanel.SetActive(true);
+        }
+/*
+        if (Application.platform == RuntimePlatform.Android) {
+            if (Input.GetKey(KeyCode.Escape)) {
+                gameEndPanel.SetActive(true);
+            }
+        }
+        else {
+            if (Input.GetKeyDown(KeyCode.Escape)) {
+                gameEndPanel.SetActive(true);
+            }
+        }
+    */
     }
 
     // 재화 갱신
     public void UpdateMoney(int money) {
         moneyText.text = "" + money;
+    }
+
+    // 게임 종료 패널에서 YES 버튼 클릭시 호출
+    public void OnGameEndYesButtonClick() {
+        Application.Quit();
+        return;
+    }
+
+    // 열매 심기 버튼 갱신
+    private void FruitPlantingButtonUpdate() {
+        // 소지금에따라 열매 심기 버튼 활성화/비활성화, 텍스트 변경
+        for (int i = 0; i < fruitPlantingButton.Length; i++) {
+            // 소지금이 열매 구매 가격보다 많으면
+            if (GameManager.instance.money >= GameManager.instance.fruitPurchasePrice[i]) {
+                // 버튼 활성화
+                fruitPlantingButton[i].interactable = true;
+                // 버튼 텍스트 변경
+                fruitPlantingButton[i].GetComponentInChildren<Text>().text = "심기";
+            }
+            // 소지금이 열매 구매 가격보다 적으면
+            else {
+                // 버튼 비활성화
+                fruitPlantingButton[i].interactable = false;
+                // 버튼 텍스트 변경
+                fruitPlantingButton[i].GetComponentInChildren<Text>().text = "재화 부족";
+            }
+        }
     }
 
     // 미션, 설정 등의 Panel이 활성화되어 있으면 비활성화
@@ -108,6 +163,8 @@ public class UIManager : MonoBehaviour
             if (fruitPanel.activeSelf == false) {
                 PanelDeactivation();
                 fruitPanel.SetActive(true);
+
+                FruitPlantingButtonUpdate();
             }
         }
         // 열매가 심어져 있는 경우 -> 수확
@@ -126,9 +183,6 @@ public class UIManager : MonoBehaviour
         GameObject panel = null;
 
         switch (panelName) {
-            case "Fruit":
-                panel = fruitPanel;
-                break;
             case "Mission":
                 panel = missionPanel;
                 break;

@@ -40,7 +40,7 @@ public class TreeManager : MonoBehaviour
     public int maxFruitCount;
 
     // 나무 업그레이드 비용
-    private int[] treeUpgradeCost = {0, 0, 0, 0, 0};
+    private int[] treeUpgradeCost = {100, 1000, 3000, 10000};
 
     void Start()
     {
@@ -216,5 +216,24 @@ public class TreeManager : MonoBehaviour
         TreePanelUpdate();
         TreeRelocation();
         FruitRelocation();
+
+        TreeUpgradeButtonTextUpdate();
+    }
+
+    // 나무 패널 오픈 시 메인화면 Tree 오브젝트 OnClick에서 호출
+    // 소지금에 따라 나무 업그레이드 버튼 텍스트, 활성화 비활성화 갱신
+    public void TreeUpgradeButtonTextUpdate() {
+        if (treeGrade == maxTreeGrade) {
+            return;
+        }
+
+        if (GameManager.instance.money >= treeUpgradeCost[treeGrade - 1]) {
+            treeUpgradeButton.GetComponentInChildren<Text>().text = "업그레이드";
+            treeUpgradeButton.GetComponentInChildren<Button>().interactable = true;
+        }
+        else {
+            treeUpgradeButton.GetComponentInChildren<Text>().text = "재화 부족";
+            treeUpgradeButton.GetComponentInChildren<Button>().interactable = false;
+        }
     }
 }

@@ -37,6 +37,21 @@ public class GameManager : MonoBehaviour
 
     private int seasonIndex;
 
+    // 최대 소지금
+    private int maxMoney = 99999;
+
+    /*
+        과일 구매가, 판매가, 성장 시간 정보
+        [0] : 사과
+        [1] : 배
+        [2] : 감
+        [3] : 포도
+        [4] : 한라봉
+    */
+    public float[] fruitPurchasePrice = {0f, 3f, 5f, 10f, 30f};
+    public float[] fruitSellingPrice = {3f, 10f, 30f, 70f, 300f};
+    public float[] fruitRemainingTime = {10f, 30f, 60f, 300f, 600f};
+
 
     // 게임 시작과 동시에 싱글톤을 구성
     void Awake() {
@@ -76,8 +91,7 @@ public class GameManager : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
-        
+    { 
         if (nextSeasonRemainingTime >= seasonalChangeTime) {
             seasonIndex = (seasonIndex + 1) % 4;
             seasonText.text = seasonName[seasonIndex];
@@ -105,8 +119,12 @@ public class GameManager : MonoBehaviour
         SetMoney(money - subMoney);
     }
 
-    private void SetMoney(int money) {
-        this.money = money;
+    private void SetMoney(int setMoney) {
+        money = setMoney;
+        // 소지금이 최대 소지금보다 많아지면 소지금을 최대 소지금으로 변경
+        if (money > maxMoney) {
+            money = maxMoney;
+        }
         UIManager.instance.UpdateMoney(money);
         // 재화를 저장
         PlayerPrefs.SetInt(id + "Money", money);
