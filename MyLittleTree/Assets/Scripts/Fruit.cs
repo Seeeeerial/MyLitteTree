@@ -195,7 +195,7 @@ public class Fruit : MonoBehaviour
         blessingCount += num;
 
         // 가격 증가
-        sellingPrice *= 1.3f;
+        sellingPrice *= 2f;
 
         // 열매 판매 가격 저장
         PlayerPrefs.SetFloat(GameManager.instance.id + "SellingPrice" + fruitId, sellingPrice);

@@ -7,6 +7,11 @@ public class UIManager : MonoBehaviour
 {   
     public static UIManager instance; // 싱글톤을 할당할 전역 변수
 
+    // 미션 컴포넌트
+    public Mission mission;
+    // 동물도감 컴포넌트
+    public AnimalCollection animalCollection;
+
     // 환경설정 패널
     public GameObject settingPanel;
     // 도전과제 패널
@@ -32,8 +37,10 @@ public class UIManager : MonoBehaviour
     // 열매 패널의 가격 텍스트
     public Text[] fruitInformationText;
 
-    // 동물 버튼
-    public Button[] animalButton;
+    // 동물 오브젝트
+    public GameObject[] animal = new GameObject[5];
+    // 동물 활성화 여부
+    public bool[] animalActive = new bool[5];
     // 요정의 축복 주기 버튼
     public Button blessingButton;
 
@@ -66,6 +73,8 @@ public class UIManager : MonoBehaviour
         }
 
         FruitPlantingButtonUpdate();
+
+        LoadAnimalActive();
     }
 
     void Update() {
@@ -162,7 +171,8 @@ public class UIManager : MonoBehaviour
         if (fruit.fruitName == "") {
             if (fruitPanel.activeSelf == false) {
                 PanelDeactivation();
-                fruitPanel.SetActive(true);
+                
+                OnUIButtonClick("Fruit");
 
                 FruitPlantingButtonUpdate();
             }
@@ -175,6 +185,8 @@ public class UIManager : MonoBehaviour
             // 필드 초기화
             fruit.Reset();
 
+            // 수확 미션 진행도 갱신
+            mission.HarvestMission();
         }
     }
 
@@ -183,11 +195,17 @@ public class UIManager : MonoBehaviour
         GameObject panel = null;
 
         switch (panelName) {
+            case "Fruit":
+                panel = fruitPanel;
+                break;
             case "Mission":
                 panel = missionPanel;
                 break;
             case "AnimalCollection":
                 panel = animalCollectionPanel;
+
+                animalCollection.UpdateAnimalCollection(animalActive);
+
                 break;
             case "Setting":
                 panel = settingPanel;
@@ -203,6 +221,19 @@ public class UIManager : MonoBehaviour
         if (panel.activeSelf == false) {
             PanelDeactivation();
             panel.SetActive(true);
+        }
+
+        Scrollbar scrollbar = panel.GetComponentInChildren<Scrollbar>();
+
+        // 패널들의 스크롤바를 초기값(좌우 -> 좌, 상하 -> 상) 으로 설정
+        if (scrollbar != null) {
+            // 열매 패널 스크롤바만 좌우 이동
+            if (panel == fruitPanel) {
+                scrollbar.value = 0;
+            }
+            else {
+                scrollbar.value = 1;
+            }
         }
     }
 
@@ -231,5 +262,23 @@ public class UIManager : MonoBehaviour
                 // 잘못된 panelName이 온 경우
                 break;
         }
+    }
+
+    // 동물 활성화 여부 불러오기
+    public void LoadAnimalActive() {
+        for (int i = 0; i < animalActive.Length; i++) {
+            animalActive[i] = PlayerPrefs.GetInt(GameManager.instance.id + "AnimalActive" + i, 0) == 1 ? true : false;
+            animal[i].SetActive(animalActive[i]);
+        }
+    }
+
+    // 동물 활성화 및 저장
+    // Mission의 TreeMissionReward에서 호출
+    public void SaveAnimalActive(int index) {
+        animalActive[index] = true;
+
+        animal[index].SetActive(animalActive[index]);
+        
+        PlayerPrefs.SetInt(GameManager.instance.id + "AnimalActive" + index, animalActive[index] == true ? 1 : 0);
     }
 }

@@ -6,18 +6,20 @@ using UnityEngine.UI;
 public class AnimalCollection : MonoBehaviour
 {
     // 동물 이미지 컴포넌트
-    public Image[] image;
+    public Image[] animalImage = new Image[5];
     // 동물 정보가 들어가는 오브젝트
-    public Text[] impormationText;
-    // 동물 획득 여부
-    private bool[] haveAnimal;
+    public Text[] animalImpormationText = new Text[5];
 
-    // 동물 이미지
-    public Sprite[] animalSprite;
+    // 동물 스프라이트
+    public Sprite[] animalSprite = new Sprite[5];
     // 동물 정보
-    private string[] animalImpormation;
+    public string[] animalImpormation = {"이름 : 개\n특징 : 개 특징", 
+    "이름 : 고양이\n특징 : 고양이 특징", 
+    "이름 : 기니피그\n특징 : 기니피그 특징", 
+    "이름 : 너구리\n특징 : 너구리 특징", 
+    "이름 : 여우\n특징 : 여우 특징"};
     // 동물이 오픈되지 않았을 때 사용할 ? 이미지
-    public Sprite unopenedImage;
+    public Sprite unopenedSprite;
 
 
     // Start is called before the first frame update
@@ -28,16 +30,24 @@ public class AnimalCollection : MonoBehaviour
 
 
     // 동물 도감 창 갱신
-    private void UpdateAnimalCollection() {
-
+    // UIManager의 OnUIButtonClick에서 동물도감 패널을 활성화할 때 호출
+    public void UpdateAnimalCollection(bool[] haveAnimal) {
+        for (int i = 0; i < haveAnimal.Length; i++) {
+            if (haveAnimal[i] == true) {
+                animalImage[i].sprite = animalSprite[i];
+                animalImpormationText[i].text = animalImpormation[i];
+            }
+            else {
+                animalImage[i].sprite = unopenedSprite;
+                animalImpormationText[i].text = "소유하지 않음";
+            }
+        }
     }
 
     // 동물을 얻음
     public void GetAnimal(string animalName) {
         // 동물 추가
 
-        // 갱신
-        UpdateAnimalCollection();
     }
 
     // 동물 index 반환

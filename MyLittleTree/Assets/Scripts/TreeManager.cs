@@ -56,7 +56,12 @@ public class TreeManager : MonoBehaviour
 
         TreePanelUpdate();
         TreeRelocation();
-        FruitRelocation();     
+        FruitRelocation();
+
+        if (treeGrade == 1) {
+            // 나무 업그레이드 미션 갱신(나무 1등급 달성 도전과제 달성을 위함)
+            mission.TreeUpgradeMission(treeGrade);
+        }
     }
 
     void Update()
@@ -201,6 +206,9 @@ public class TreeManager : MonoBehaviour
         PlayerPrefs.SetInt(GameManager.instance.id + "TreeGrade", treeGrade);
         // 활성화 열매 버튼 개수 변경
         maxFruitCount = treeGrade + 2;
+
+        // 나무 업그레이드 미션 갱신
+        mission.TreeUpgradeMission(treeGrade);
     }
 
     // 나무 업그레이드 버튼을 클릭할 경우

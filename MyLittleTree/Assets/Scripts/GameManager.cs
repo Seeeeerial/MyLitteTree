@@ -8,6 +8,9 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance; // 싱글톤을 할당할 전역 변수
 
+    // 트리 매니저 컴포넌트
+    public TreeManager treeManager;
+
     // 계절 이미지 컴포넌트
     public Image seasonImage;
     // 계절 텍스트 컴포넌트(나중에 삭제)
@@ -81,6 +84,9 @@ public class GameManager : MonoBehaviour
     }
 
     void Start() {
+        // 해상도 고정
+        Screen.SetResolution(1280, 720, true);
+
         // 처음 실행될 때 저장되었던 재화를 불러와서 게임 창에 갱신
         UIManager.instance.UpdateMoney(money);
 
@@ -132,6 +138,10 @@ public class GameManager : MonoBehaviour
 
     public void SubBlessing() {
         blessing--;
+    }
+
+    public int GetTreeGrade() {
+        return treeManager.treeGrade;
     }
 
 /*
