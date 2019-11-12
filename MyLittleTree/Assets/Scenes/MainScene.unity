@@ -2296,7 +2296,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f501f4f23067b1743bc30885eeda117e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  treeManager: {fileID: 0}
+  treeManager: {fileID: 1961238992}
   seasonImage: {fileID: 1902791651}
   seasonText: {fileID: 1669844247}
   seasonSprite:
@@ -2311,16 +2311,16 @@ MonoBehaviour:
   nextSeasonRemainingTime: 0
   fruitPurchasePrice:
   - 0
-  - 3
+  - 2
   - 5
   - 10
-  - 30
+  - 20
   fruitSellingPrice:
-  - 3
-  - 10
-  - 30
-  - 70
-  - 300
+  - 1
+  - 5
+  - 25
+  - 150
+  - 500
   fruitRemainingTime:
   - 10
   - 30

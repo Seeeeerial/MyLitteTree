@@ -51,10 +51,14 @@ public class GameManager : MonoBehaviour
         [3] : 포도
         [4] : 한라봉
     */
+    public float[] fruitPurchasePrice = {0f, 2f, 5f, 10f, 20f};
+    public float[] fruitSellingPrice = {1f, 5f, 25f, 150f, 500f};
+    public float[] fruitRemainingTime = {10f, 30f, 60f, 300f, 600f};
+/*
     public float[] fruitPurchasePrice = {0f, 3f, 5f, 10f, 30f};
     public float[] fruitSellingPrice = {3f, 10f, 30f, 70f, 300f};
     public float[] fruitRemainingTime = {10f, 30f, 60f, 300f, 600f};
-
+*/
 
     // 게임 시작과 동시에 싱글톤을 구성
     void Awake() {
