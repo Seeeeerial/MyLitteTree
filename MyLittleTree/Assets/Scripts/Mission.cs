@@ -24,7 +24,7 @@ public class Mission : MonoBehaviour
     private int[] progress = new int[5];
 */
     //열매 수확 미션 진행도
-    public int fruitHarvest;
+    public int fruitHarvestCount;
 
     /*
         미션 목표
@@ -65,7 +65,7 @@ public class Mission : MonoBehaviour
     void Start()
     {
         // 열매 수확 횟수 불러오기
-        fruitHarvest = PlayerPrefs.GetInt(GameManager.instance.id + "FruitHarvest", 0);
+        fruitHarvestCount = PlayerPrefs.GetInt(GameManager.instance.id + "FruitHarvestCount", 0);
 
         // 열매 미션 달성 여부 불러오기
         for (int i = 0; i < fruitAchievement.Length; i++) {
@@ -80,7 +80,6 @@ public class Mission : MonoBehaviour
         // 보상 수령 여부 불러오기
         for (int i = 0; i < getReward.Length; i++) {
             getReward[i] = PlayerPrefs.GetInt(GameManager.instance.id + "GetReward" + i, 0) == 1 ? true : false;
-            Debug.Log("getReward[" + i + "] = " + getReward[i]);
         }
 
         // 미션 창 갱신
@@ -90,10 +89,10 @@ public class Mission : MonoBehaviour
 
     // 열매 수확시 진행도 적용
     public void HarvestMission() {
-        fruitHarvest++;
+        fruitHarvestCount++;
 
         // 열매 수확 횟수 저장
-        PlayerPrefs.SetInt(GameManager.instance.id + "FruitHarvest", fruitHarvest);
+        PlayerPrefs.SetInt(GameManager.instance.id + "FruitHarvestCount", fruitHarvestCount);
 
         FruitMissionAchievementCheck();
     }
@@ -102,7 +101,7 @@ public class Mission : MonoBehaviour
     private void FruitMissionAchievementCheck() {
         for (int i = 0; i < fruitAchievement.Length; i++) {
             // 완료하지 못한 미션 중 미션 조건이 충족 됨
-            if (fruitAchievement[i] == false && fruitHarvest >= fruitHarvestObjective[i]) {
+            if (fruitAchievement[i] == false && fruitHarvestCount >= fruitHarvestObjective[i]) {
                 fruitAchievement[i] = true;
 
                 // 열매 미션 달성 여부 저장
@@ -127,8 +126,6 @@ public class Mission : MonoBehaviour
         // 나무 업그레이드 미션 달성 여부 저장
         PlayerPrefs.SetInt(GameManager.instance.id + "TreeAchievement" + (treeGrade - 1), treeAchievement[treeGrade - 1] == true ? 1 : 0);
 
-        Debug.Log("나무 업그레이드 미션 달성 여부 저장" + (treeGrade - 1));
-
         // 미션 창 갱신
         UpdateMission();
     }
@@ -146,9 +143,8 @@ public class Mission : MonoBehaviour
             if (i < 5) {
                 // 현재 수확 미션 진행도를 현재 열매 수확 횟수가 목표 수확 횟수보다 많으면 목표 수확 횟수로 출력
                 missionText[i].text = "열매 수확 횟수\n";
-                if (fruitHarvest <= fruitHarvestObjective[i]) {
-                    missionText[i].text += fruitHarvest;
-                    Debug.Log("열매 미션 갱신");
+                if (fruitHarvestCount <= fruitHarvestObjective[i]) {
+                    missionText[i].text += fruitHarvestCount;
                 }
                 else {
                     missionText[i].text += fruitHarvestObjective[i];

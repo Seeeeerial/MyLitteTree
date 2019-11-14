@@ -24,6 +24,10 @@ public class UIManager : MonoBehaviour
     public GameObject gameEndPanel;
     // 나무 패널
     public GameObject treePanel;
+    // 게임 초기화 패널
+    public GameObject resetPanel;
+    // 요정의 축복 주기 버튼(Button 컴포넌트와 Image 컴포넌트 둘다 접근하기 위해 GameObject로 사용)
+    public GameObject blessingButton;
 
     // 재화 텍스트 컴포넌트
     public Text moneyText;
@@ -41,8 +45,22 @@ public class UIManager : MonoBehaviour
     public GameObject[] animal = new GameObject[5];
     // 동물 활성화 여부
     public bool[] animalActive = new bool[5];
-    // 요정의 축복 주기 버튼
-    public Button blessingButton;
+
+    // 축복 버튼 클릭 여부
+    private bool blessingButtonClick = false;
+    // fruitButtonColor Index가 더하기로 증가
+    private bool fruitColorIndexPlus = true;
+    // 축복 버튼을 클릭할 때 변화되는 열매 버튼 Color 저장
+    private Color[] fruitButtonColor = {new Color(1f, 1f, 1f, 0.98f), new Color(1f, 1f, 1f, 0.96f), new Color(1f, 1f, 1f, 0.94f), new Color(1f, 1f, 1f, 0.92f), new Color(1f, 1f, 1f, 0.90f),
+        new Color(1f, 1f, 1f, 0.88f), new Color(1f, 1f, 1f, 0.86f), new Color(1f, 1f, 1f, 0.84f), new Color(1f, 1f, 1f, 0.82f), new Color(1f, 1f, 1f, 0.80f), 
+        new Color(1f, 1f, 1f, 0.78f), new Color(1f, 1f, 1f, 0.76f), new Color(1f, 1f, 1f, 0.74f), new Color(1f, 1f, 1f, 0.72f), new Color(1f, 1f, 1f, 0.70f), 
+        new Color(1f, 1f, 1f, 0.68f), new Color(1f, 1f, 1f, 0.66f), new Color(1f, 1f, 1f, 0.64f), new Color(1f, 1f, 1f, 0.62f), new Color(1f, 1f, 1f, 0.60f), 
+        new Color(1f, 1f, 1f, 0.58f), new Color(1f, 1f, 1f, 0.56f), new Color(1f, 1f, 1f, 0.54f), new Color(1f, 1f, 1f, 0.52f), new Color(1f, 1f, 1f, 0.50f), 
+        new Color(1f, 1f, 1f, 0.48f), new Color(1f, 1f, 1f, 0.46f), new Color(1f, 1f, 1f, 0.44f), new Color(1f, 1f, 1f, 0.42f), new Color(1f, 1f, 1f, 0.40f), 
+        new Color(1f, 1f, 1f, 0.38f), new Color(1f, 1f, 1f, 0.36f), new Color(1f, 1f, 1f, 0.34f), new Color(1f, 1f, 1f, 0.32f), new Color(1f, 1f, 1f, 0.30f)};
+    // 열매 버튼 Color Index
+    private int fruitButonColorIndex = 0;
+
 
     // 게임 시작과 동시에 싱글톤을 구성
     void Awake() {
@@ -79,20 +97,35 @@ public class UIManager : MonoBehaviour
 
     void Update() {
         if (Input.GetKey(KeyCode.Escape)) {
+            PanelDeactivation();
+
             gameEndPanel.SetActive(true);
         }
-/*
-        if (Application.platform == RuntimePlatform.Android) {
-            if (Input.GetKey(KeyCode.Escape)) {
-                gameEndPanel.SetActive(true);
+
+        if (blessingButtonClick) {
+            if (fruitColorIndexPlus) {
+                fruitButonColorIndex++;
+                if (fruitButonColorIndex == fruitButtonColor.Length - 1) {
+                    fruitColorIndexPlus = false;
+                }
+            }
+            else {
+                fruitButonColorIndex--;
+                if (fruitButonColorIndex == 0) {
+                    fruitColorIndexPlus = true;
+                }
+            }
+
+            for (int i = 0; i < fruitButton.Length; i++) {
+                // 열매 버튼이 비활성화 상태이면(현재 나무 등급에서는 사용하지 않은 열매의 버튼이면 반복 중지)
+                if (fruitButton[i].activeSelf == false) {
+                    break;
+                }
+
+                if (fruitButton[i].GetComponent<Fruit>().GrowingFruit() == true) 
+                    fruitButton[i].GetComponent<Image>().color = fruitButtonColor[fruitButonColorIndex];
             }
         }
-        else {
-            if (Input.GetKeyDown(KeyCode.Escape)) {
-                gameEndPanel.SetActive(true);
-            }
-        }
-    */
     }
 
     // 재화 갱신
@@ -127,8 +160,8 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    // 미션, 설정 등의 Panel이 활성화되어 있으면 비활성화
-    // Panel을 활성화시킬때 실행
+    // 미션, 설정 등의 Panel이 활성화되어 있으면 모두 비활성화
+    // Panel을 활성화시킬때 먼저 실행
     public void PanelDeactivation() {
         // settingPanel이 활성화되어 있으면
         if (settingPanel.activeSelf == true) {
@@ -146,6 +179,20 @@ public class UIManager : MonoBehaviour
         if (fruitPanel.activeSelf == true) {
             fruitPanel.SetActive(false);
         }
+        // treePanel이 활성화 되어 있으면
+        if (treePanel.activeSelf == true) {
+            treePanel.SetActive(false);
+        }
+        // gameEndPanel이 활성화 되어 있으면
+        if (gameEndPanel.activeSelf == true) {
+            gameEndPanel.SetActive(false);
+        }
+        // resetPanel이 활성화 되어 있으면
+        if (resetPanel.activeSelf == true) {
+            resetPanel.SetActive(false);
+        }
+
+        blessingButtonClick = false;
     }
 
     // 열매를 심음
@@ -188,6 +235,13 @@ public class UIManager : MonoBehaviour
             // 수확 미션 진행도 갱신
             mission.HarvestMission();
         }
+        // 열매가 성장중이고 축복 버튼이 눌려진 상태
+        else if (blessingButtonClick) {
+            // 축복 사용
+            fruit.UseBlessing();
+            // 축복 버튼을 누르지 않은 상태로 변경(구현의 간단함을 위해 축복 버튼을 클릭할 때 호출하는 메서드 사용)
+            OnBlessingButtonClick();
+        }
     }
 
     // 미션 버튼을 누르면 호출
@@ -204,6 +258,7 @@ public class UIManager : MonoBehaviour
             case "AnimalCollection":
                 panel = animalCollectionPanel;
 
+                // 동물도감 갱신
                 animalCollection.UpdateAnimalCollection(animalActive);
 
                 break;
@@ -212,6 +267,9 @@ public class UIManager : MonoBehaviour
                 break;
             case "Tree":
                 panel = treePanel;
+                break;
+            case "Reset":
+                panel = resetPanel;
                 break;
             default:
                 // 잘못된 panelName이 온 경우
@@ -258,6 +316,9 @@ public class UIManager : MonoBehaviour
             case "GameEnd":
                 gameEndPanel.SetActive(false);
                 break;
+            case "Reset":
+                resetPanel.SetActive(false);
+                break;
             default:
                 // 잘못된 panelName이 온 경우
                 break;
@@ -280,5 +341,39 @@ public class UIManager : MonoBehaviour
         animal[index].SetActive(animalActive[index]);
         
         PlayerPrefs.SetInt(GameManager.instance.id + "AnimalActive" + index, animalActive[index] == true ? 1 : 0);
+    }
+
+    // 축복 버튼을 누를 때 호출
+    // 축복 버튼을 누른 상태(blessingButtonClick == true)로 성장 중인 열매를 클릭할 때 호출
+    public void OnBlessingButtonClick() {
+        // 축복 버튼을 누름
+        if (!blessingButtonClick) {
+            // 소지중인 축복이 1개도 없으면
+            if (GameManager.instance.blessing == 0) {
+                return;
+            }
+
+            blessingButtonClick = true;
+
+            // 축복 버튼 Color 변경
+            blessingButton.GetComponent<Image>().color = new Color(0f, 1f, 1f, 1f);
+        }
+        // 축복 버튼을 누른 상태에서 축복 버튼을 다시 누름 || 축복을 열매에 사용
+        else {
+            blessingButtonClick = false;
+
+            // 축복 버튼 Color 변경
+            blessingButton.GetComponent<Image>().color = new Color(1f, 1f, 1f, 1f);
+
+            // 열매 버튼 Color 초기화
+            ResetFruitButtonColor();
+        }
+    }
+
+    // 열매 버튼 Color 초기화
+    private void ResetFruitButtonColor() {
+        for (int i = 0; i < fruitButton.Length; i++) {
+            fruitButton[i].GetComponent<Image>().color = new Color(1f, 1f, 1f, 1f);
+        }
     }
 }

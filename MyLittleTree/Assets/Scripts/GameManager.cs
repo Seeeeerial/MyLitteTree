@@ -17,6 +17,8 @@ public class GameManager : MonoBehaviour
     public Text seasonText;
     // 계절 이미지
     public Sprite[] seasonSprite;
+    // UIManager의 blessingButton의 자식 Text 컴포넌트
+    private Text blessingButtonText;
 
     // MyLittleTree 식별자
     public string id = "MyLittleTree";
@@ -25,16 +27,18 @@ public class GameManager : MonoBehaviour
     public int money;
     // 요정의 축복 소지량
     public int blessing;
-    // 마지막으로 생성된 축복 시간
-    public float lastGeneratedBlessingTime;
-    // 축복 생성 주기
-    private float ganerateBlessingTime = 300f;
+    // 최대 축복 소지량
+    private const int maxBlessing = 10;
+    // 마지막으로 생성된 축복 시간으로 부터 지난 시간
+    private float lastGenerateBlessingTime;
+    // 축복 생성 주기(5분)
+    private float ganerateBlessingTime = 20f;
 
     // 다음 계절 까지 남은 시간
-    public float nextSeasonRemainingTime;
+    private float nextSeasonRemainingTime;
 
-    // 한 계절 당 주기
-    private float seasonalChangeTime = 10f;
+    // 한 계절 당 주기(15분)
+    private float seasonalChangeTime = 15f;
     // 계절 이름(나중에 삭제)
     private string[] seasonName = {"봄", "여름", "가을", "겨울"};
 
@@ -62,6 +66,9 @@ public class GameManager : MonoBehaviour
 
     // 게임 시작과 동시에 싱글톤을 구성
     void Awake() {
+        // 해상도 고정
+        Screen.SetResolution(1280, 720, true);
+
         // 싱글톤 변수 instance가 비어있는가?
         if (instance == null)
         {
@@ -81,15 +88,17 @@ public class GameManager : MonoBehaviour
         // 게임 데이터 불러오기
         // 재화를 불러오기
         money = PlayerPrefs.GetInt(id + "Money", 0);
+        // 축복 갯수 불러오기
+        blessing = PlayerPrefs.GetInt(id + "Blessing", 0);
         // 계절 index 불러오기
         seasonIndex =  PlayerPrefs.GetInt(id + "SeasonIndex", 0);
         // 계절 변화 남은 시간 불러오기
-        nextSeasonRemainingTime = PlayerPrefs.GetFloat(id + "NextSeasonRemainingTime", 0);
+        nextSeasonRemainingTime = PlayerPrefs.GetFloat(id + "NextSeasonRemainingTime", seasonalChangeTime);
+        // 축복 생성 남은 시간 불러오기
+        lastGenerateBlessingTime = PlayerPrefs.GetFloat(id + "LastGenerateBlessingTime", ganerateBlessingTime);
     }
 
     void Start() {
-        // 해상도 고정
-        Screen.SetResolution(1280, 720, true);
 
         // 처음 실행될 때 저장되었던 재화를 불러와서 게임 창에 갱신
         UIManager.instance.UpdateMoney(money);
@@ -97,26 +106,47 @@ public class GameManager : MonoBehaviour
         seasonText.text = seasonName[seasonIndex];
         // 배경 이미지 변경
         seasonImage.sprite = seasonSprite[seasonIndex];
+
+        blessingButtonText = UIManager.instance.blessingButton.GetComponentInChildren<Text>();
     }
 
     // Update is called once per frame
     void Update()
     { 
-        if (nextSeasonRemainingTime >= seasonalChangeTime) {
+        // 계절 변화
+        if (nextSeasonRemainingTime <= 0f) {
             seasonIndex = (seasonIndex + 1) % 4;
-            seasonText.text = seasonName[seasonIndex];
-            nextSeasonRemainingTime = 0f;
-            // 배경 이미지 변경
-            seasonImage.sprite = seasonSprite[seasonIndex];
             // 계절 index 저장
             PlayerPrefs.SetInt(id + "SeasonIndex", seasonIndex);
+
+            seasonText.text = seasonName[seasonIndex];
+            nextSeasonRemainingTime = seasonalChangeTime;
+            // 배경 이미지 변경
+            seasonImage.sprite = seasonSprite[seasonIndex];
         }
         else {
-            nextSeasonRemainingTime += Time.deltaTime;
+            nextSeasonRemainingTime -= Time.deltaTime;
+        }
+
+        // 축복 생성
+        if (blessing < maxBlessing) {
+            if (lastGenerateBlessingTime <= 0) {
+                blessing++;
+                // 축복 갯수 저장
+                PlayerPrefs.SetInt(id + "Blessing", blessing);
+
+                lastGenerateBlessingTime = ganerateBlessingTime;
+            }
+            else {
+                lastGenerateBlessingTime -= Time.deltaTime;
+            }
+            blessingButtonText.text = "요정의 축복\n수량 : " + blessing + " / " + maxBlessing + "\n남은 생성 시간 : " + (int)lastGenerateBlessingTime;
         }
 
         // 계절 변화 남은 시간 저장(한프레임마다 저장 -> 비효율적 -> 일정 주기로 저장되도록 변경(ex N초 마다 저장))
         PlayerPrefs.SetFloat(id + "NextSeasonRemainingTime", nextSeasonRemainingTime);
+        // 축복 생성 남은 시간 저장
+        PlayerPrefs.SetFloat(id + "LastGenerateBlessingTime", lastGenerateBlessingTime);
     }
 
     // 재화를 얻음
@@ -144,72 +174,12 @@ public class GameManager : MonoBehaviour
         blessing--;
     }
 
-    public int GetTreeGrade() {
-        return treeManager.treeGrade;
-    }
-
-/*
-    // 돈, 축복 데이터 저장
-    public void SaveItemData(int money, int blessing) {
-        // 재화를 저장
-        PlayerPrefs.SetInt(id + "Money", money);
-        // 축복 저장
-        PlayerPrefs.SetInt(id + "Blessing", blessing);
-        Debug.Log("SaveItemData");
-    }
-
-    // 돈, 축복 데이터 불러오기
-    public void LoadItemData() {
-        // 재화를 불러오기
-        money = PlayerPrefs.GetInt(id + "Money");
-        // 축복 갯수 불러오기
-        blessing = PlayerPrefs.GetInt(id + "Blessing");
-        Debug.Log("SaveItemData");
-    }
-
-    // 미션 진행도 데이터 저장
-    // Missions.cs 에서 사용
-    public void SaveMissionData(Missions mission) {
-        
-    }
-
-    // 미션 진행도 데이터 불러오기
-    // Missions.cs 에서 사용 -> Start() 
-    public void LoadMissionData(Missions mission) {
-
-    }
-
-    // 동물 도감 데이터 저장
-    public void SaveAnimalCollectionData() {
-
-    }
-
-    // 동물 도감  데이터 불러오기
-    public void LoadAnimalCollectionData() {
-
-    }
-
-    // 설정 데이터 저장
-    public void SaveSettingData(Settings setting) {
-        PlayerPrefs.SetInt(id + "BgmVolume", bgmVolume);
-    }
-
-    // 설정 데이터 불러오기
-    public void LoadSettingData(Settings setting) {
-        setting.bgmVolume = PlayerPrefs.GetInt(id + "BgmVolume");
-    }
-
-    // 동물 잠금해제 여부 저장
-
-
-*/
     // 게임 정보 초기화
     public void ResetGameData() {
+        
         // 모든 키 값을 제거
         PlayerPrefs.DeleteAll();
-        Debug.Log("게임 초기화");   // 나중에 지우기
-        money = 0;  // 나중에 지우기
-        UIManager.instance.UpdateMoney(money);  // 나중에 지우기
+        
 
         // 처음 씬 불러오기
         LoadFirstScene();
@@ -222,6 +192,6 @@ public class GameManager : MonoBehaviour
 
     // 엔딩 씬 불러오기
     public void LoadEndingScene() {
-        
+        SceneManager.LoadScene("EndingScene");
     }
 }

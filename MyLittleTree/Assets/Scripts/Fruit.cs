@@ -190,9 +190,9 @@ public class Fruit : MonoBehaviour
         fruitButtonImage.sprite = basicSprite;
     }
     
-    // 요정의 축복 주기
-    public void UseBlessing(int num) {
-        blessingCount += num;
+    // 요정의 축복 주기(한 번에 1개만 사용 가능)
+    public void UseBlessing() {
+        blessingCount++;
 
         // 가격 증가
         sellingPrice *= 2f;
@@ -204,4 +204,13 @@ public class Fruit : MonoBehaviour
         GameManager.instance.SubBlessing();
     }
 
+    // 열매가 성장 중이면 true 반환
+    // 열매가 심어지지 않았거나 다 성장했으면 false 반환
+    public bool GrowingFruit() {
+        if (fruitName != "" && harvestable == false) {
+            return true;
+        }
+
+        return false;
+    }
 }

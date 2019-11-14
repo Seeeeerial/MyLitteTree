@@ -397,6 +397,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e6195e9f83c380449f767dfecc206d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: MyLittleTree
 --- !u!4 &1093992380
 Transform:
   m_ObjectHideFlags: 0
