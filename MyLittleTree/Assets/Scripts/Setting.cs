@@ -71,6 +71,9 @@ public class Setting : MonoBehaviour
 
         // 배경음악 ON/OFF 상태 저장
         PlayerPrefs.SetInt(GameManager.instance.id + "BgmOn", bgmOn == true ? TRUE : FALSE);
+
+        // 버튼 클릭 소리 재생
+        UIManager.instance.PlayButtonClickSound(0);
     }
 
     // 효과음 ON/OFF 버튼 클릭시 호출
@@ -88,10 +91,16 @@ public class Setting : MonoBehaviour
 
         // 효과음 ON/OFF 상태 저장
         PlayerPrefs.SetInt(GameManager.instance.id + "SoundEffectOn", soundEffectOn == true ? TRUE : FALSE);
+
+        // 버튼 클릭 소리 재생
+        UIManager.instance.PlayButtonClickSound(0);
     }
 
     // 게임 초기화 버튼 클릭시 호출
     public void OnResetButtonClick() {
         GameManager.instance.ResetGameData();
+
+        // 버튼 클릭 소리 재생
+        UIManager.instance.PlayButtonClickSound(0);
     }
 }

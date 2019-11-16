@@ -183,7 +183,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 41f8d6659bb211741bd96a1f79c65ee2, type: 3}
   - {fileID: 21300000, guid: a3a1bcc8723e70844aa1a5e12d262069, type: 3}
   fruitName: 
-  blessingCount: 0
+  getBlessing: 0
   sellingPrice: 0
   remainingTime: 0
   harvestable: 0
@@ -567,7 +567,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 41f8d6659bb211741bd96a1f79c65ee2, type: 3}
   - {fileID: 21300000, guid: a3a1bcc8723e70844aa1a5e12d262069, type: 3}
   fruitName: 
-  blessingCount: 0
+  getBlessing: 0
   sellingPrice: 0
   remainingTime: 0
   harvestable: 0
@@ -1231,7 +1231,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 41f8d6659bb211741bd96a1f79c65ee2, type: 3}
   - {fileID: 21300000, guid: a3a1bcc8723e70844aa1a5e12d262069, type: 3}
   fruitName: 
-  blessingCount: 0
+  getBlessing: 0
   sellingPrice: 0
   remainingTime: 0
   harvestable: 0
@@ -1738,7 +1738,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1902791650}
-  m_RootOrder: 24
+  m_RootOrder: 26
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1768,8 +1768,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_audioClip: {fileID: 8300000, guid: 46f7d9286697dfb46bf3e1c389c4cacf, type: 3}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -1896,7 +1896,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 197685929}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 197685926}
+        m_MethodName: OnAnimalClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &197685929
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2504,7 +2515,7 @@ GameObject:
   - component: {fileID: 254689582}
   - component: {fileID: 254689581}
   m_Layer: 5
-  m_Name: Raccoon
+  m_Name: Pig
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2522,12 +2533,12 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1902791650}
-  m_RootOrder: 25
+  m_RootOrder: 24
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 174.70004, y: -226.99998}
-  m_SizeDelta: {x: 105, y: 100}
+  m_SizeDelta: {x: 120, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &254689581
 MonoBehaviour:
@@ -2552,8 +2563,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_audioClip: {fileID: 8300000, guid: 0b319ed582b8e8d45858f79e55036ec5, type: 3}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -2680,7 +2691,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 254689584}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 254689581}
+        m_MethodName: OnAnimalClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &254689584
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2699,7 +2721,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: f7f4db0216343bb4eb5945055b03936e, type: 3}
+  m_Sprite: {fileID: 21300000, guid: af13167966f287649aa48bbb03907441, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3113,7 +3135,7 @@ GameObject:
   - component: {fileID: 328174433}
   - component: {fileID: 328174434}
   m_Layer: 5
-  m_Name: Mission Achievement Text7
+  m_Name: Mission Reward Text7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3706,7 +3728,7 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: Setting
-          m_BoolArgument: 1
+          m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &412522388
 MonoBehaviour:
@@ -3775,7 +3797,7 @@ GameObject:
   - component: {fileID: 413175203}
   - component: {fileID: 413175204}
   m_Layer: 5
-  m_Name: Mission Achievement Text4
+  m_Name: Mission Reward Text4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5340,7 +5362,7 @@ GameObject:
   - component: {fileID: 556353787}
   - component: {fileID: 556353788}
   m_Layer: 5
-  m_Name: Mission Achievement Text1
+  m_Name: Mission Reward Text1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6229,6 +6251,80 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 620791738}
   m_CullTransparentMesh: 0
+--- !u!1 &621170937
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 621170938}
+  - component: {fileID: 621170940}
+  - component: {fileID: 621170939}
+  m_Layer: 5
+  m_Name: Error Message Panel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &621170938
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 621170937}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 910613919}
+  m_Father: {fileID: 1902791650}
+  m_RootOrder: 34
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: -50}
+  m_SizeDelta: {x: 400, y: 50}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &621170939
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 621170937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &621170940
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 621170937}
+  m_CullTransparentMesh: 0
 --- !u!1 &632318889
 GameObject:
   m_ObjectHideFlags: 0
@@ -6241,7 +6337,7 @@ GameObject:
   - component: {fileID: 632318891}
   - component: {fileID: 632318892}
   m_Layer: 5
-  m_Name: Mission Achievement Text8
+  m_Name: Mission Reward Text8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6413,12 +6509,12 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1254282751}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 0}
+  m_AnchoredPosition: {x: 0, y: 30}
+  m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &639907746
 MonoBehaviour:
@@ -6451,8 +6547,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\uC694\uC815\uC758 \uCD95\uBCF5\n\uC218\uB7C9 : 0 / 10\n\uB0A8\uC740 \uC0DD\uC131
-    \uC2DC\uAC04 : 0"
+  m_Text: "\uC218\uB7C9 : 0 / 10\n\uB0A8\uC740 \uC0DD\uC131 \uC2DC\uAC04 : 0"
 --- !u!222 &639907747
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6670,7 +6765,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 650476535}
-  - component: {fileID: 650476536}
   m_Layer: 5
   m_Name: Content
   m_TagString: Untagged
@@ -6704,34 +6798,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -256.5, y: 156.49998}
+  m_AnchoredPosition: {x: -256.5, y: 156.49953}
   m_SizeDelta: {x: 513, y: 1519.3}
   m_Pivot: {x: 0, y: 1}
---- !u!114 &650476536
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 650476534}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59f8146938fff824cb5fd77236b75775, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Padding:
-    m_Left: 10
-    m_Right: 10
-    m_Top: 10
-    m_Bottom: 10
-  m_ChildAlignment: 0
-  m_Spacing: 0
-  m_ChildForceExpandWidth: 1
-  m_ChildForceExpandHeight: 0
-  m_ChildControlWidth: 1
-  m_ChildControlHeight: 0
-  m_ChildScaleWidth: 0
-  m_ChildScaleHeight: 0
 --- !u!1 &662927430
 GameObject:
   m_ObjectHideFlags: 0
@@ -6747,7 +6816,7 @@ GameObject:
   - component: {fileID: 662927433}
   - component: {fileID: 662927432}
   m_Layer: 5
-  m_Name: Fox
+  m_Name: Goose
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6765,12 +6834,12 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1902791650}
-  m_RootOrder: 26
+  m_RootOrder: 25
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 340.48, y: -271.05}
-  m_SizeDelta: {x: 110, y: 110}
+  m_AnchoredPosition: {x: 329, y: -255}
+  m_SizeDelta: {x: 80, y: 110}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &662927432
 MonoBehaviour:
@@ -6795,8 +6864,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_audioClip: {fileID: 8300000, guid: af7b981f49a3a254bb4801d4d0410e56, type: 3}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -6923,7 +6992,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 662927435}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 662927432}
+        m_MethodName: OnAnimalClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &662927435
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6942,7 +7022,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: b3de4043f0f66264699a9ddc10dff7da, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4d141f33daf38114e860077b3c87a7cd, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -6992,7 +7072,7 @@ RectTransform:
   m_Father: {fileID: 2049970585}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.79398626}
+  m_AnchorMin: {x: 0, y: 0.79398406}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 20}
@@ -7481,7 +7561,7 @@ GameObject:
   - component: {fileID: 796504749}
   - component: {fileID: 796504750}
   m_Layer: 5
-  m_Name: Mission Achievement Text2
+  m_Name: Mission Reward Text2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7855,7 +7935,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 41f8d6659bb211741bd96a1f79c65ee2, type: 3}
   - {fileID: 21300000, guid: a3a1bcc8723e70844aa1a5e12d262069, type: 3}
   fruitName: 
-  blessingCount: 0
+  getBlessing: 0
   sellingPrice: 0
   remainingTime: 0
   harvestable: 0
@@ -8313,8 +8393,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 666496057}
   m_HandleRect: {fileID: 666496056}
   m_Direction: 2
-  m_Value: 1
-  m_Size: 0.20601375
+  m_Value: 1.0000004
+  m_Size: 0.20601591
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -8367,7 +8447,7 @@ GameObject:
   - component: {fileID: 858439559}
   - component: {fileID: 858439560}
   m_Layer: 5
-  m_Name: Mission Achievement Text5
+  m_Name: Mission Reward Text5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8444,7 +8524,7 @@ GameObject:
   - component: {fileID: 867911334}
   - component: {fileID: 867911335}
   m_Layer: 5
-  m_Name: Mission Achievement Text10
+  m_Name: Mission Reward Text10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8801,6 +8881,83 @@ MonoBehaviour:
   m_ChildControlHeight: 1
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
+--- !u!1 &910613918
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 910613919}
+  - component: {fileID: 910613921}
+  - component: {fileID: 910613920}
+  m_Layer: 5
+  m_Name: Error Message Text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &910613919
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 910613918}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 621170938}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &910613920
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 910613918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 20
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 2
+    m_MaxSize: 40
+    m_Alignment: 0
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: New Text
+--- !u!222 &910613921
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 910613918}
+  m_CullTransparentMesh: 0
 --- !u!1 &921392818
 GameObject:
   m_ObjectHideFlags: 0
@@ -8941,7 +9098,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 41f8d6659bb211741bd96a1f79c65ee2, type: 3}
   - {fileID: 21300000, guid: a3a1bcc8723e70844aa1a5e12d262069, type: 3}
   fruitName: 
-  blessingCount: 0
+  getBlessing: 0
   sellingPrice: 0
   remainingTime: 0
   harvestable: 0
@@ -10169,6 +10326,124 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1063117479}
   m_CullTransparentMesh: 0
+--- !u!1 &1081136655
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1081136656}
+  - component: {fileID: 1081136659}
+  - component: {fileID: 1081136658}
+  - component: {fileID: 1081136657}
+  m_Layer: 5
+  m_Name: Achievement Button
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1081136656
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1081136655}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1379724030}
+  m_Father: {fileID: 2108301852}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: -15, y: 55}
+  m_SizeDelta: {x: 30, y: 30}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1081136657
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1081136655}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Navigation:
+    m_Mode: 3
+    m_SelectOnUp: {fileID: 0}
+    m_SelectOnDown: {fileID: 0}
+    m_SelectOnLeft: {fileID: 0}
+    m_SelectOnRight: {fileID: 0}
+  m_Transition: 1
+  m_Colors:
+    m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
+    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
+    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
+    m_ColorMultiplier: 1
+    m_FadeDuration: 0.1
+  m_SpriteState:
+    m_HighlightedSprite: {fileID: 0}
+    m_PressedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: 0}
+    m_DisabledSprite: {fileID: 0}
+  m_AnimationTriggers:
+    m_NormalTrigger: Normal
+    m_HighlightedTrigger: Highlighted
+    m_PressedTrigger: Pressed
+    m_SelectedTrigger: Selected
+    m_DisabledTrigger: Disabled
+  m_Interactable: 1
+  m_TargetGraphic: {fileID: 1081136658}
+  m_OnClick:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &1081136658
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1081136655}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 0.495283, b: 0.495283, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1081136659
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1081136655}
+  m_CullTransparentMesh: 0
 --- !u!1 &1082945291
 GameObject:
   m_ObjectHideFlags: 0
@@ -10463,7 +10738,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 41f8d6659bb211741bd96a1f79c65ee2, type: 3}
   - {fileID: 21300000, guid: a3a1bcc8723e70844aa1a5e12d262069, type: 3}
   fruitName: 
-  blessingCount: 0
+  getBlessing: 0
   sellingPrice: 0
   remainingTime: 0
   harvestable: 0
@@ -10877,8 +11152,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_audioClip: {fileID: 8300000, guid: a3f3a65339de8f545b26d87631f943af, type: 3}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -11005,7 +11280,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1202629232}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1202629229}
+        m_MethodName: OnAnimalClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1202629232
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11389,14 +11675,15 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 1953984989}
   - {fileID: 639907745}
   m_Father: {fileID: 1902791650}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 495.48004, y: -45.500008}
-  m_SizeDelta: {x: 200, y: 100}
+  m_AnchoredPosition: {x: 490.18, y: -18}
+  m_SizeDelta: {x: 200, y: 160}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1270500996
 GameObject:
@@ -12068,7 +12355,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: ed8e8287f879a3e46872b1f72423fb96, type: 3}
+  m_audioClip: {fileID: 8300000, guid: f8a5a3ff94104534c9ef92736abdad19, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
@@ -12264,7 +12551,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1376293292
 RectTransform:
   m_ObjectHideFlags: 0
@@ -12398,11 +12685,88 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 41f8d6659bb211741bd96a1f79c65ee2, type: 3}
   - {fileID: 21300000, guid: a3a1bcc8723e70844aa1a5e12d262069, type: 3}
   fruitName: 
-  blessingCount: 0
+  getBlessing: 0
   sellingPrice: 0
   remainingTime: 0
   harvestable: 0
   fruitId: 1
+--- !u!1 &1379724029
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1379724030}
+  - component: {fileID: 1379724032}
+  - component: {fileID: 1379724031}
+  m_Layer: 5
+  m_Name: Achievement Count Text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1379724030
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1379724029}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1081136656}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1379724031
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1379724029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 1
+    m_FontStyle: 1
+    m_BestFit: 0
+    m_MinSize: 0
+    m_MaxSize: 100
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 1
+    m_VerticalOverflow: 1
+    m_LineSpacing: 1
+  m_Text: 0
+--- !u!222 &1379724032
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1379724029}
+  m_CullTransparentMesh: 0
 --- !u!1 &1409084584
 GameObject:
   m_ObjectHideFlags: 0
@@ -12838,7 +13202,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1428361601}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1428361600}
+        m_MethodName: OnAnimalClick
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!82 &1428361604
 AudioSource:
   m_ObjectHideFlags: 0
@@ -12849,8 +13224,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_audioClip: {fileID: 8300000, guid: d54a64b3c306f554b8e2b9020b99dff9, type: 3}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -13387,7 +13762,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 41f8d6659bb211741bd96a1f79c65ee2, type: 3}
   - {fileID: 21300000, guid: a3a1bcc8723e70844aa1a5e12d262069, type: 3}
   fruitName: 
-  blessingCount: 0
+  getBlessing: 0
   sellingPrice: 0
   remainingTime: 0
   harvestable: 0
@@ -13639,7 +14014,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1713127742}
+      - m_Target: {fileID: 247673486}
         m_MethodName: OnGameEndYesButtonClick
         m_Mode: 1
         m_Arguments:
@@ -13866,7 +14241,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 41f8d6659bb211741bd96a1f79c65ee2, type: 3}
   - {fileID: 21300000, guid: a3a1bcc8723e70844aa1a5e12d262069, type: 3}
   fruitName: 
-  blessingCount: 0
+  getBlessing: 0
   sellingPrice: 0
   remainingTime: 0
   harvestable: 0
@@ -14506,7 +14881,7 @@ GameObject:
   - component: {fileID: 1600993229}
   - component: {fileID: 1600993230}
   m_Layer: 5
-  m_Name: Mission Achievement Text9
+  m_Name: Mission Reward Text9
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15120,7 +15495,7 @@ GameObject:
   - component: {fileID: 1675727172}
   - component: {fileID: 1675727173}
   m_Layer: 5
-  m_Name: Mission Achievement Text6
+  m_Name: Mission Reward Text6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -15378,6 +15753,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1713127743}
   - component: {fileID: 1713127742}
+  - component: {fileID: 1713127744}
   m_Layer: 0
   m_Name: UIManager
   m_TagString: Untagged
@@ -15399,6 +15775,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mission: {fileID: 2108301856}
   animalCollection: {fileID: 2040319697}
+  setting: {fileID: 412522390}
   settingPanel: {fileID: 1948106288}
   missionPanel: {fileID: 1574219876}
   animalCollectionPanel: {fileID: 80479143}
@@ -15434,9 +15811,9 @@ MonoBehaviour:
   animal:
   - {fileID: 1428361598}
   - {fileID: 1202629227}
-  - {fileID: 197685924}
   - {fileID: 254689579}
   - {fileID: 662927430}
+  - {fileID: 197685924}
   animalActive: 0000000000
 --- !u!4 &1713127743
 Transform:
@@ -15452,6 +15829,102 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &1713127744
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1713127741}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: a71674ed9423e08469a190cc807acd9c, type: 3}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &1731634934
 GameObject:
   m_ObjectHideFlags: 0
@@ -16605,7 +17078,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 41f8d6659bb211741bd96a1f79c65ee2, type: 3}
   - {fileID: 21300000, guid: a3a1bcc8723e70844aa1a5e12d262069, type: 3}
   fruitName: 
-  blessingCount: 0
+  getBlessing: 0
   sellingPrice: 0
   remainingTime: 0
   harvestable: 0
@@ -17226,9 +17699,9 @@ RectTransform:
   - {fileID: 78363152}
   - {fileID: 1428361599}
   - {fileID: 1202629228}
-  - {fileID: 197685925}
   - {fileID: 254689580}
   - {fileID: 662927431}
+  - {fileID: 197685925}
   - {fileID: 1948106289}
   - {fileID: 80479144}
   - {fileID: 1574219877}
@@ -17236,6 +17709,7 @@ RectTransform:
   - {fileID: 737293070}
   - {fileID: 2059923488}
   - {fileID: 1836176872}
+  - {fileID: 621170938}
   m_Father: {fileID: 1823990351}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -18111,6 +18585,79 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1948106288}
+  m_CullTransparentMesh: 0
+--- !u!1 &1953984988
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1953984989}
+  - component: {fileID: 1953984991}
+  - component: {fileID: 1953984990}
+  m_Layer: 5
+  m_Name: Image
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1953984989
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1953984988}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1254282751}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: -55}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1953984990
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1953984988}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: 28e1ef5aa98ec71469d451d9ab8d2aad, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1953984991
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1953984988}
   m_CullTransparentMesh: 0
 --- !u!1 &1961238987
 GameObject:
@@ -19109,7 +19656,7 @@ GameObject:
   - component: {fileID: 2028896929}
   - component: {fileID: 2028896930}
   m_Layer: 5
-  m_Name: Mission Achievement Text3
+  m_Name: Mission Reward Text3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -19458,9 +20005,9 @@ MonoBehaviour:
   animalSprite:
   - {fileID: 21300000, guid: aea851d732e323a4c92723eaefcffdce, type: 3}
   - {fileID: 21300000, guid: dc9b1cad563de0f49b412caec3bd1604, type: 3}
+  - {fileID: 21300000, guid: af13167966f287649aa48bbb03907441, type: 3}
+  - {fileID: 21300000, guid: 4d141f33daf38114e860077b3c87a7cd, type: 3}
   - {fileID: 21300000, guid: 062eb1f7cdaee4049b6ba44f1c6b9533, type: 3}
-  - {fileID: 21300000, guid: f7f4db0216343bb4eb5945055b03936e, type: 3}
-  - {fileID: 21300000, guid: b3de4043f0f66264699a9ddc10dff7da, type: 3}
   animalImpormation:
   - "\uC774\uB984 : \uAC1C\n\uD2B9\uC9D5 : \uAC1C \uD2B9\uC9D5"
   - "\uC774\uB984 : \uACE0\uC591\uC774\n\uD2B9\uC9D5 : \uACE0\uC591\uC774 \uD2B9\uC9D5"
@@ -19924,7 +20471,8 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1081136656}
   m_Father: {fileID: 1902791650}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -20036,21 +20584,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animalCollection: {fileID: 2040319697}
-  fruitHarvest: 0
+  fruitHarvestCount: 0
+  fruitAchievement: 0000000000
+  treeAchievement: 0000000000
   fruitHarvestReward: 640000002c010000e8030000d0070000a00f0000
-  treeUpgradeReward:
-  - Dog
-  - Cat
-  - GuineaPig
-  - Raccoon
-  - Fox
-  treeUpgradeRewardKor:
-  - "\uAC1C"
-  - "\uACE0\uC591\uC774"
-  - "\uAE30\uB2C8\uD53C\uADF8"
-  - "\uB108\uAD6C\uB9AC"
-  - "\uC5EC\uC6B0"
   getReward: 00000000000000000000
+  missionListPanel:
+  - {fileID: 1982428045}
+  - {fileID: 1577456487}
+  - {fileID: 1409084584}
+  - {fileID: 1605559382}
+  - {fileID: 2003092151}
+  - {fileID: 524284631}
+  - {fileID: 67308598}
+  - {fileID: 428190689}
+  - {fileID: 317934562}
+  - {fileID: 22668172}
   missionText:
   - {fileID: 1200407596}
   - {fileID: 1921739770}
@@ -20062,7 +20611,7 @@ MonoBehaviour:
   - {fileID: 177299422}
   - {fileID: 1602136277}
   - {fileID: 1916201280}
-  missionAchievementText:
+  missionRewardText:
   - {fileID: 556353788}
   - {fileID: 796504750}
   - {fileID: 2028896930}
@@ -20084,6 +20633,7 @@ MonoBehaviour:
   - {fileID: 531727420}
   - {fileID: 806873975}
   - {fileID: 35401852}
+  achievementCountText: {fileID: 1379724031}
 --- !u!1 &2130463288
 GameObject:
   m_ObjectHideFlags: 0

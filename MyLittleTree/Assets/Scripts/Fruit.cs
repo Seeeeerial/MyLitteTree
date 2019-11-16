@@ -22,8 +22,8 @@ public class Fruit : MonoBehaviour
 
     // 심어져 있는 과일 이름
     public string fruitName;
-    // 축복받은 횟수
-    public int blessingCount;
+    // 축복을 받았는지 여부
+    public bool getBlessing;
     // 판매 가격
     public float sellingPrice;
     // 성장까지 남은 시간
@@ -40,17 +40,11 @@ public class Fruit : MonoBehaviour
         fruitButtonImage = fruitButton.GetComponent<Image>();
 
         basicSprite = fruitButtonImage.sprite;
-/*
-        fruitName = "";
-        blessingCount = 0;
-        sellingPrice = 0f;
-        remainingTime = 0f;
-        harvestable = false;
-*/
+
         // 열매 이름 불러오기
         fruitName =  PlayerPrefs.GetString(GameManager.instance.id + "FruitName" + fruitId, "");
-        // 열매 축복 준 횟수 불러오기
-        blessingCount = PlayerPrefs.GetInt(GameManager.instance.id + "BlessingCount" + fruitId, 0);
+        // 축복을 받았는지 여부 불러오기
+        getBlessing = PlayerPrefs.GetInt(GameManager.instance.id + "GetBlessing" + fruitId, 0) == 1 ? true : false;
         // 열매 판개 가격 불러오기
         sellingPrice = PlayerPrefs.GetFloat(GameManager.instance.id + "SellingPrice" + fruitId, 0);
         // 열매 성장 남은 시간 불러오기
@@ -105,6 +99,8 @@ public class Fruit : MonoBehaviour
             
             // 남은 시간 텍스트 초기화
             remainingTimeText.text = "";
+            // 열매 색상 초기화
+            // GetComponent<Image>().color = new Color(1f, 1f, 1f, 1f);
         }
 
         // 성장 중이면
@@ -114,18 +110,13 @@ public class Fruit : MonoBehaviour
         }
     }
 
-    // 게임 오브젝트가 활성화될 때마다 호출
-    void OnEnable() {
-
-    }
-
     // 필수 설정 함수
     // UIManager.cs에서 호출
     public void Set(string fName) {
         int idx = -1;
 
         fruitName = fName;
-        blessingCount = 0;
+        getBlessing = false;
 
         if (fName == "Apple") {
             idx = 0;
@@ -156,8 +147,8 @@ public class Fruit : MonoBehaviour
 
         // 열매 이름 저장
         PlayerPrefs.SetString(GameManager.instance.id + "FruitName" + fruitId, fruitName);
-        // 열매 축복 준 횟수 저장
-        PlayerPrefs.SetInt(GameManager.instance.id + "BlessingCount" + fruitId, blessingCount);
+        // 축복을 받았는지 여부 저장
+        PlayerPrefs.SetInt(GameManager.instance.id + "GetBlessing" + fruitId, getBlessing == true ? 1 : 0);
         // 열매 판매 가격 저장
         PlayerPrefs.SetFloat(GameManager.instance.id + "SellingPrice" + fruitId, sellingPrice);
         // 열매 성장 남은 시간 저장
@@ -170,7 +161,7 @@ public class Fruit : MonoBehaviour
     public void Reset() {
         // 필드 초기화
         fruitName = "";
-        blessingCount = 0;
+        getBlessing = false;
         sellingPrice = 0f;
         remainingTime = 0f;
         harvestable = false;
@@ -178,8 +169,8 @@ public class Fruit : MonoBehaviour
 
         // 열매 이름 저장
         PlayerPrefs.SetString(GameManager.instance.id + "FruitName" + fruitId, fruitName);
-        // 열매 축복 준 횟수 저장
-        PlayerPrefs.SetInt(GameManager.instance.id + "BlessingCount" + fruitId, blessingCount);
+        // 축복을 받았는지 여부 저장
+        PlayerPrefs.SetInt(GameManager.instance.id + "GetBlessing" + fruitId, getBlessing == true ? 1 : 0);
         // 열매 판매 가격 저장
         PlayerPrefs.SetFloat(GameManager.instance.id + "SellingPrice" + fruitId, sellingPrice);
         // 열매 성장 남은 시간 저장
@@ -192,7 +183,14 @@ public class Fruit : MonoBehaviour
     
     // 요정의 축복 주기(한 번에 1개만 사용 가능)
     public void UseBlessing() {
-        blessingCount++;
+        if (getBlessing) {
+            return;
+        }
+
+        getBlessing = true;
+
+        // 축복을 받았는지 여부 저장
+        PlayerPrefs.SetInt(GameManager.instance.id + "GetBlessing" + fruitId, getBlessing == true ? 1 : 0);
 
         // 가격 증가
         sellingPrice *= 2f;
@@ -204,10 +202,11 @@ public class Fruit : MonoBehaviour
         GameManager.instance.SubBlessing();
     }
 
-    // 열매가 성장 중이면 true 반환
-    // 열매가 심어지지 않았거나 다 성장했으면 false 반환
-    public bool GrowingFruit() {
-        if (fruitName != "" && harvestable == false) {
+    // 열매가 축복을 받을 수 있는지 반환
+    // 심여져 있는 열매가 존재 && 축복을 받지 않음 -> true 반환
+    // 열매가 심어지지 않음 || 축복을 이미 받음 -> false 반환
+    public bool GiveBlessing() {
+        if (fruitName != "" && getBlessing == false) {
             return true;
         }
 

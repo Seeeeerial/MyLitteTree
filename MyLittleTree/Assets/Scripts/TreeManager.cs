@@ -54,7 +54,7 @@ public class TreeManager : MonoBehaviour
         // 최대 열매 심기 가능 갯수 설정
         maxFruitCount = treeGrade + 2;
 
-        TreePanelUpdate();
+        UpdateTreePanel();
         TreeRelocation();
         FruitRelocation();
 
@@ -85,7 +85,7 @@ public class TreeManager : MonoBehaviour
 */
 
     // 나무 이미지, 정보 변경
-    private void TreePanelUpdate() {
+    private void UpdateTreePanel() {
         // 현재 나무 등급에 맞게 나무 패널 나무 이미지 변경
         treeImage.sprite = treeSprite[treeGrade - 1];
         // 현재 나무 등급에 맞게 나무 패널 나무 정보 변경
@@ -197,7 +197,7 @@ public class TreeManager : MonoBehaviour
     }
 
     // 나무 업그레이드 메서드
-    private void TreeUpgrade() {
+    private void UpgradeTree() {
         // 업그레이드 비용만큼 재화 감소
         GameManager.instance.SubMoney(treeUpgradeCost[treeGrade - 1]);
         // 나무 등급 상승
@@ -219,13 +219,16 @@ public class TreeManager : MonoBehaviour
             return;
         }
 
-        TreeUpgrade();
+        UpgradeTree();
         
-        TreePanelUpdate();
+        UpdateTreePanel();
         TreeRelocation();
         FruitRelocation();
 
         TreeUpgradeButtonTextUpdate();
+
+        // 버튼 클릭 소리 재생
+        UIManager.instance.PlayButtonClickSound(0);
     }
 
     // 나무 패널 오픈 시 메인화면 Tree 오브젝트 OnClick에서 호출

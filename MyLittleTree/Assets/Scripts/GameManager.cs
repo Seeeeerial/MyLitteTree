@@ -108,6 +108,9 @@ public class GameManager : MonoBehaviour
         seasonImage.sprite = seasonSprite[seasonIndex];
 
         blessingButtonText = UIManager.instance.blessingButton.GetComponentInChildren<Text>();
+
+        // 축복 상태 갱신
+        blessingButtonText.text = "수량 : " + blessing + " / " + maxBlessing + "\n남은 생성 시간 : " + (int)lastGenerateBlessingTime;
     }
 
     // Update is called once per frame
@@ -140,7 +143,7 @@ public class GameManager : MonoBehaviour
             else {
                 lastGenerateBlessingTime -= Time.deltaTime;
             }
-            blessingButtonText.text = "요정의 축복\n수량 : " + blessing + " / " + maxBlessing + "\n남은 생성 시간 : " + (int)lastGenerateBlessingTime;
+            blessingButtonText.text = "수량 : " + blessing + " / " + maxBlessing + "\n남은 생성 시간 : " + (int)lastGenerateBlessingTime;
         }
 
         // 계절 변화 남은 시간 저장(한프레임마다 저장 -> 비효율적 -> 일정 주기로 저장되도록 변경(ex N초 마다 저장))
@@ -193,5 +196,12 @@ public class GameManager : MonoBehaviour
     // 엔딩 씬 불러오기
     public void LoadEndingScene() {
         SceneManager.LoadScene("EndingScene");
+    }
+
+    
+    // 게임 종료 패널에서 YES 버튼 클릭시 호출
+    public void OnGameEndYesButtonClick() {
+        Application.Quit();
+        return;
     }
 }
