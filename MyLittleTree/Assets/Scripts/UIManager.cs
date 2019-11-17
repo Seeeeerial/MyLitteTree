@@ -65,7 +65,7 @@ public class UIManager : MonoBehaviour
     public bool[] animalActive = new bool[5];
 
     // 축복 버튼 클릭 여부
-    private bool blessingButtonClick;
+    private bool blessingButtonClick = false;
     // fruitButtonColor Index가 더하기로 증가
     private bool fruitColorIndexPlus = true;
     // 축복 버튼을 클릭할 때 변화되는 열매 버튼 Color 저장
@@ -413,8 +413,15 @@ public class UIManager : MonoBehaviour
     // 동물 활성화 여부 불러오기
     public void LoadAnimalActive() {
         for (int i = 0; i < animalActive.Length; i++) {
-            animalActive[i] = PlayerPrefs.GetInt(GameManager.instance.id + "AnimalActive" + i, 0) == 1 ? true : false;
-            animal[i].SetActive(animalActive[i]);
+            try {
+                animalActive[i] = PlayerPrefs.GetInt(GameManager.instance.id + "AnimalActive" + i, 0) == 1 ? true : false;
+                animal[i].SetActive(animalActive[i]);
+            } 
+            catch (System.Exception e) {
+                Debug.Log(e);
+                UIManager.instance.ErrorMessage("파일 자동 불러오기 실패");
+                GameManager.instance.QuitGame();
+            }
         }
     }
 
@@ -424,8 +431,14 @@ public class UIManager : MonoBehaviour
         animalActive[index] = true;
 
         animal[index].SetActive(animalActive[index]);
-        
-        PlayerPrefs.SetInt(GameManager.instance.id + "AnimalActive" + index, animalActive[index] == true ? 1 : 0);
+
+        try {
+            PlayerPrefs.SetInt(GameManager.instance.id + "AnimalActive" + index, animalActive[index] == true ? 1 : 0);
+        } 
+        catch (System.Exception e) {
+            Debug.Log(e);
+            UIManager.instance.ErrorMessage("파일 자동 저장 실패");
+        }
     }
 
     // 축복 버튼을 누를 때 호출
@@ -539,6 +552,8 @@ public class UIManager : MonoBehaviour
 
     }*/
 
+    // 열매 버튼에 열매가 하나라도 심어져 있으면 true 반환
+    // 모든 열매 버튼에 열매가 심어져있지 않으면 false 반환
     private bool EmptyFruitButton() {
         for (int i = 0; i < fruit.Length; i++) {
             if (fruit[i].fruitName != "") {
@@ -547,6 +562,40 @@ public class UIManager : MonoBehaviour
             }
         }
 
+        return false;
+    }
+
+    // 패널이 활성화되어 있는 지 확인
+    public bool ActiveTruePanel() {
+        // settingPanel이 활성화되어 있으면
+        if (settingPanel.activeSelf == true) {
+            return true;
+        }
+        // missionPanel이 활성화되어 있으면
+        if (missionPanel.activeSelf == true) {
+            return true;
+        }
+        // animalCollectionPanel이 활성화되어 있으면
+        if (animalCollectionPanel.activeSelf == true) {
+            return true;
+        }
+        // fruitPanel이 활성화 되어 있으면
+        if (fruitPanel.activeSelf == true) {
+            return true;
+        }
+        // treePanel이 활성화 되어 있으면
+        if (treePanel.activeSelf == true) {
+            return true;
+        }
+        // gameEndPanel이 활성화 되어 있으면
+        if (gameEndPanel.activeSelf == true) {
+            return true;
+        }
+        // resetPanel이 활성화 되어 있으면
+        if (resetPanel.activeSelf == true) {
+            return true;
+        }
+        
         return false;
     }
 }

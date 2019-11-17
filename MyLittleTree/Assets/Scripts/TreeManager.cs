@@ -47,10 +47,17 @@ public class TreeManager : MonoBehaviour
         mainTreeRT = GetComponent<RectTransform>();
         mainTreeImage = GetComponent<Image>();
 
-
-        // 나무 등급 불러오기
-        // 저장된 데이터가 없으면 기본값 1
-        treeGrade = PlayerPrefs.GetInt(GameManager.instance.id + "TreeGrade", 1);
+        try {
+            // 나무 등급 불러오기
+            // 저장된 데이터가 없으면 기본값 1
+            treeGrade = PlayerPrefs.GetInt(GameManager.instance.id + "TreeGrade", 1);
+        } 
+        catch (System.Exception e) {
+            Debug.Log(e);
+            UIManager.instance.ErrorMessage("파일 자동 불러오기 실패");
+            GameManager.instance.QuitGame();
+        }
+        
         // 최대 열매 심기 가능 갯수 설정
         maxFruitCount = treeGrade + 2;
 
@@ -157,8 +164,8 @@ public class TreeManager : MonoBehaviour
         if (treeGrade == 1) {
             // 열매 버튼 3개 재배치
             UIManager.instance.fruitButton[0].GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -59);
-            UIManager.instance.fruitButton[1].GetComponent<RectTransform>().anchoredPosition = new Vector2(-37.5f, -134);
-            UIManager.instance.fruitButton[2].GetComponent<RectTransform>().anchoredPosition = new Vector2(37.5f, -134);
+            UIManager.instance.fruitButton[1].GetComponent<RectTransform>().anchoredPosition = new Vector2(-37.5f, -125);
+            UIManager.instance.fruitButton[2].GetComponent<RectTransform>().anchoredPosition = new Vector2(37.5f, -125);
         }
         else if (treeGrade == 2) {
             // 열매 버튼 4개 재배치
@@ -202,8 +209,16 @@ public class TreeManager : MonoBehaviour
         GameManager.instance.SubMoney(treeUpgradeCost[treeGrade - 1]);
         // 나무 등급 상승
         treeGrade++;
-        // 나무 등급 저장
-        PlayerPrefs.SetInt(GameManager.instance.id + "TreeGrade", treeGrade);
+
+        try {
+            // 나무 등급 저장
+            PlayerPrefs.SetInt(GameManager.instance.id + "TreeGrade", treeGrade);
+        } 
+        catch (System.Exception e) {
+            Debug.Log(e);
+            UIManager.instance.ErrorMessage("파일 자동 저장 실패");
+        }
+
         // 활성화 열매 버튼 개수 변경
         maxFruitCount = treeGrade + 2;
 

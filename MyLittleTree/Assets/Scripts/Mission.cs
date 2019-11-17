@@ -99,26 +99,35 @@ public class Mission : MonoBehaviour
         }
 */
 
-        // 열매 수확 횟수 불러오기
-        fruitHarvestCount = PlayerPrefs.GetInt(GameManager.instance.id + "FruitHarvestCount", 0);
+        try {
+            // 열매 수확 횟수 불러오기
+            fruitHarvestCount = PlayerPrefs.GetInt(GameManager.instance.id + "FruitHarvestCount", 0);
 
-        // 열매 미션 달성 여부 불러오기
-        for (int i = 0; i < fruitAchievement.Length; i++) {
-            fruitAchievement[i] = PlayerPrefs.GetInt(GameManager.instance.id + "FruitAchievement" + i, 0) == 1 ? true : false;
-        }
+            // 열매 미션 달성 여부 불러오기
+            for (int i = 0; i < fruitAchievement.Length; i++) {
+                fruitAchievement[i] = PlayerPrefs.GetInt(GameManager.instance.id + "FruitAchievement" + i, 0) == 1 ? true : false;
+            }
 
-        // 나무 업그레이드 미션 달성 여부 불러오기
-        for (int i = 0; i < treeAchievement.Length; i++) {
-            treeAchievement[i] = PlayerPrefs.GetInt(GameManager.instance.id + "TreeAchievement" + i, 0) == 1 ? true : false;
-        }
+            // 나무 업그레이드 미션 달성 여부 불러오기
+            for (int i = 0; i < treeAchievement.Length; i++) {
+                treeAchievement[i] = PlayerPrefs.GetInt(GameManager.instance.id + "TreeAchievement" + i, 0) == 1 ? true : false;
+            }
 
-        // 보상 수령 여부 불러오기
-        for (int i = 0; i < getReward.Length; i++) {
-            getReward[i] = PlayerPrefs.GetInt(GameManager.instance.id + "GetReward" + i, 0) == 1 ? true : false;
+            // 보상 수령 여부 불러오기
+            for (int i = 0; i < getReward.Length; i++) {
+                getReward[i] = PlayerPrefs.GetInt(GameManager.instance.id + "GetReward" + i, 0) == 1 ? true : false;
+            }
+        } 
+        catch (System.Exception e) {
+            Debug.Log(e);
+            UIManager.instance.ErrorMessage("파일 자동 불러오기 실패");
+            GameManager.instance.QuitGame();
         }
 
         // 미션 창 갱신
         UpdateMission();
+
+        UpdateMissionRewardText();
     }
 
 
@@ -126,9 +135,15 @@ public class Mission : MonoBehaviour
     public void HarvestMission() {
         fruitHarvestCount++;
 
-        // 열매 수확 횟수 저장
-        PlayerPrefs.SetInt(GameManager.instance.id + "FruitHarvestCount", fruitHarvestCount);
-
+        try {
+            // 열매 수확 횟수 저장
+            PlayerPrefs.SetInt(GameManager.instance.id + "FruitHarvestCount", fruitHarvestCount);
+        } 
+        catch (System.Exception e) {
+            Debug.Log(e);
+            UIManager.instance.ErrorMessage("파일 자동 저장 실패");
+        }
+        
         FruitMissionAchievementCheck();
     }
 
@@ -139,8 +154,14 @@ public class Mission : MonoBehaviour
             if (fruitAchievement[i] == false && fruitHarvestCount >= fruitHarvestObjective[i]) {
                 fruitAchievement[i] = true;
 
-                // 열매 미션 달성 여부 저장
-                PlayerPrefs.SetInt(GameManager.instance.id + "FruitAchievement" + i, fruitAchievement[i] == true ? 1 : 0);
+                try {
+                    // 열매 미션 달성 여부 저장
+                    PlayerPrefs.SetInt(GameManager.instance.id + "FruitAchievement" + i, fruitAchievement[i] == true ? 1 : 0);
+                } 
+                catch (System.Exception e) {
+                    Debug.Log(e);
+                    UIManager.instance.ErrorMessage("파일 자동 저장 실패");
+                }
 
                 break;
             }
@@ -158,8 +179,14 @@ public class Mission : MonoBehaviour
     public void TreeUpgradeMission(int treeGrade) {
         treeAchievement[treeGrade - 1] = true;
 
-        // 나무 업그레이드 미션 달성 여부 저장
-        PlayerPrefs.SetInt(GameManager.instance.id + "TreeAchievement" + (treeGrade - 1), treeAchievement[treeGrade - 1] == true ? 1 : 0);
+        try {
+            // 나무 업그레이드 미션 달성 여부 저장
+            PlayerPrefs.SetInt(GameManager.instance.id + "TreeAchievement" + (treeGrade - 1), treeAchievement[treeGrade - 1] == true ? 1 : 0);
+        } 
+        catch (System.Exception e) {
+            Debug.Log(e);
+            UIManager.instance.ErrorMessage("파일 자동 저장 실패");
+        }
 
         // 미션 창 갱신
         UpdateMission();
@@ -167,13 +194,18 @@ public class Mission : MonoBehaviour
 
     // 미션 창 갱신 && 미션 달성 수 표시 텍스트 갱신
     private void UpdateMission() {
-        UpdateMissionInformationText();
-        UpdateMissionRewardText();
-        UpdateMissionRewardButton();
-        SortMission();
+        try {
+            UpdateMissionInformationText();
+            UpdateMissionRewardButton();
+            SortMission();
 
-        // 미션 달성 수 표시 텍스트 갱신
-        UpdateAchievementCountText();
+            // 미션 달성 수 표시 텍스트 갱신
+            UpdateAchievementCountText();
+        }
+        catch (System.Exception e) {
+            Debug.Log(e);
+            UIManager.instance.ErrorMessage("도전과제 달성 표시 오류");
+        }
     }
 
     // 미션 설명 텍스트 갱신
@@ -264,8 +296,14 @@ public class Mission : MonoBehaviour
         // 보상 지급 여부 저장
         getReward[index] = true;
 
-        // 보상 수령 여부 저장
-        PlayerPrefs.SetInt(GameManager.instance.id + "GetReward" + index,  getReward[index] == true ? 1 : 0);
+        try {
+            // 보상 수령 여부 저장
+            PlayerPrefs.SetInt(GameManager.instance.id + "GetReward" + index,  getReward[index] == true ? 1 : 0);
+        } 
+        catch (System.Exception e) {
+            Debug.Log(e);
+            UIManager.instance.ErrorMessage("파일 자동 저장 실패");
+        }
 
         Debug.Log("보상 수령 여부 저장 " + index);
 
@@ -285,8 +323,14 @@ public class Mission : MonoBehaviour
         // 5 : 열매 미션 수
         getReward[index + 5] = true;
 
-        // 보상 수령 여부 저장
-        PlayerPrefs.SetInt(GameManager.instance.id + "GetReward" + (index + 5),  getReward[index + 5] == true ? 1 : 0);
+        try {
+            // 보상 수령 여부 저장
+            PlayerPrefs.SetInt(GameManager.instance.id + "GetReward" + (index + 5),  getReward[index + 5] == true ? 1 : 0);
+        } 
+        catch (System.Exception e) {
+            Debug.Log(e);
+            UIManager.instance.ErrorMessage("파일 자동 저장 실패");
+        }
 
         Debug.Log("보상 수령 여부 저장 " + (index + 5));
 

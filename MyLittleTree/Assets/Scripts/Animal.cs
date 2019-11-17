@@ -26,7 +26,7 @@ public class Animal : MonoBehaviour
 
     // 동물을 클릭했으면
     public void OnAnimalClick() {
-        if (setting.soundEffectOn == true) {
+        if (setting.soundEffectOn == true && UIManager.instance.ActiveTruePanel() == false) {
             // 효과음 재생
             animalAudio.Play();
         }

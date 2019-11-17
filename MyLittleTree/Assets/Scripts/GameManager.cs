@@ -85,17 +85,26 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        // 게임 데이터 불러오기
-        // 재화를 불러오기
-        money = PlayerPrefs.GetInt(id + "Money", 0);
-        // 축복 갯수 불러오기
-        blessing = PlayerPrefs.GetInt(id + "Blessing", 0);
-        // 계절 index 불러오기
-        seasonIndex =  PlayerPrefs.GetInt(id + "SeasonIndex", 0);
-        // 계절 변화 남은 시간 불러오기
-        nextSeasonRemainingTime = PlayerPrefs.GetFloat(id + "NextSeasonRemainingTime", seasonalChangeTime);
-        // 축복 생성 남은 시간 불러오기
-        lastGenerateBlessingTime = PlayerPrefs.GetFloat(id + "LastGenerateBlessingTime", ganerateBlessingTime);
+        try {
+            // 게임 데이터 불러오기
+            // 재화를 불러오기
+            money = PlayerPrefs.GetInt(id + "Money", 0);
+            // 축복 갯수 불러오기
+            blessing = PlayerPrefs.GetInt(id + "Blessing", 0);
+            // 계절 index 불러오기
+            seasonIndex =  PlayerPrefs.GetInt(id + "SeasonIndex", 0);
+            // 계절 변화 남은 시간 불러오기
+            nextSeasonRemainingTime = PlayerPrefs.GetFloat(id + "NextSeasonRemainingTime", seasonalChangeTime);
+            // 축복 생성 남은 시간 불러오기
+            lastGenerateBlessingTime = PlayerPrefs.GetFloat(id + "LastGenerateBlessingTime", ganerateBlessingTime);
+        } 
+        catch (System.Exception e) {
+            Debug.Log(e);
+            UIManager.instance.ErrorMessage("파일 자동 불러오기 실패");
+            GameManager.instance.QuitGame();
+        }
+
+        
     }
 
     void Start() {
@@ -146,10 +155,16 @@ public class GameManager : MonoBehaviour
             blessingButtonText.text = "수량 : " + blessing + " / " + maxBlessing + "\n남은 생성 시간 : " + (int)lastGenerateBlessingTime;
         }
 
-        // 계절 변화 남은 시간 저장(한프레임마다 저장 -> 비효율적 -> 일정 주기로 저장되도록 변경(ex N초 마다 저장))
-        PlayerPrefs.SetFloat(id + "NextSeasonRemainingTime", nextSeasonRemainingTime);
-        // 축복 생성 남은 시간 저장
-        PlayerPrefs.SetFloat(id + "LastGenerateBlessingTime", lastGenerateBlessingTime);
+        try {
+            // 계절 변화 남은 시간 저장(한프레임마다 저장 -> 비효율적 -> 일정 주기로 저장되도록 변경(ex N초 마다 저장))
+            PlayerPrefs.SetFloat(id + "NextSeasonRemainingTime", nextSeasonRemainingTime);
+            // 축복 생성 남은 시간 저장
+            PlayerPrefs.SetFloat(id + "LastGenerateBlessingTime", lastGenerateBlessingTime);
+        } 
+        catch (System.Exception e) {
+            Debug.Log(e);
+            UIManager.instance.ErrorMessage("파일 자동 저장 실패");
+        }  
     }
 
     // 재화를 얻음
@@ -169,8 +184,15 @@ public class GameManager : MonoBehaviour
             money = maxMoney;
         }
         UIManager.instance.UpdateMoney(money);
-        // 재화를 저장
-        PlayerPrefs.SetInt(id + "Money", money);
+
+        try {
+            // 재화를 저장
+            PlayerPrefs.SetInt(id + "Money", money);
+        } 
+        catch (System.Exception e) {
+            Debug.Log(e);
+            UIManager.instance.ErrorMessage("파일 자동 저장 실패");
+        }
     }
 
     public void SubBlessing() {
@@ -200,7 +222,7 @@ public class GameManager : MonoBehaviour
 
     
     // 게임 종료 패널에서 YES 버튼 클릭시 호출
-    public void OnGameEndYesButtonClick() {
+    public void QuitGame() {
         Application.Quit();
         return;
     }
