@@ -33,11 +33,23 @@ public class UIManager : MonoBehaviour
     public GameObject resetPanel;
     // 요정의 축복 주기 버튼(Button 컴포넌트와 Image 컴포넌트 둘다 접근하기 위해 GameObject로 사용)
     public GameObject blessingButton;
+/*
+    // 오류 메시지 패널 오브젝트
+    public GameObject errorPanelPrefab;
+*/
+    // 오류 메시지 패널 오브젝트
+    public GameObject errorPanel;
+    private Image errorPanelImage;
+    private Text errorMessageText;
+    private Color errorPanelColor;
+    private Color errorMessageTextColor;
 
     // 재화 텍스트 컴포넌트
     public Text moneyText;
     // 열매 버튼(자료형을 GameObject를 사용한 이유는 Button을 사용하게 되면 SetActive 메서드를 호출할 수 없기 때문)
     public GameObject[] fruitButton;
+    // Fruit 컴포넌트(fruitButton의 수와 같아야 함)
+    private Fruit[] fruit = new Fruit[7];
     // 열매 패널을 오픈한 열매 버튼 index -> 열매를 심으면 현재 index에 해당하는 열매 버튼에만 열매가 심어짐
     private int index;
 
@@ -48,6 +60,7 @@ public class UIManager : MonoBehaviour
 
     // 동물 오브젝트
     public GameObject[] animal = new GameObject[5];
+
     // 동물 활성화 여부
     public bool[] animalActive = new bool[5];
 
@@ -66,6 +79,17 @@ public class UIManager : MonoBehaviour
     // 열매 버튼 Color Index
     private int fruitColorIndex = 0;
 
+    enum FadeState {NonPlaying, Playing, RePlaying};
+    
+    private FadeState fadeState = FadeState.NonPlaying;
+
+    // Fade 효과 재생 시간
+    private float fadeTime = 2f;
+    // Fade 효과 재생한 시간
+    private float fadePlayingTime = 0f;
+
+    private Color errorPanelImageBasicColor = new Color(1f, 1f, 1f, 1f);
+    private Color errorMessageTextBasicColor = new Color(50/255f, 50/255f, 50/255f, 1f);
 
     // 게임 시작과 동시에 싱글톤을 구성
     void Awake() {
@@ -86,6 +110,13 @@ public class UIManager : MonoBehaviour
         }
 
         buttonClickAudio = GetComponent<AudioSource>();
+
+        errorPanelImage = errorPanel.GetComponent<Image>();
+        errorMessageText = errorPanel.GetComponentInChildren<Text>();
+        
+        for (int i = 0; i <fruitButton.Length; i++) {
+            fruit[i] = fruitButton[i].GetComponent<Fruit>();
+        }
     }
 
     void Start() {
@@ -131,6 +162,28 @@ public class UIManager : MonoBehaviour
                 if (fruitButton[i].GetComponent<Fruit>().GiveBlessing() == true) 
                     fruitButton[i].GetComponent<Image>().color = fruitButtonColor[fruitColorIndex];
             }
+        }
+
+        fadePlayingTime += Time.deltaTime;
+     
+        if (fadeState == FadeState.Playing) {
+            errorPanelColor = errorPanelImage.color;
+            errorMessageTextColor = errorMessageText.color;
+            
+            if (errorPanelColor.a > 0.0f) {
+                // 에러 패널 색상 변경
+                errorPanelColor.a = 1f - ((fadePlayingTime / fadeTime) > 1f ? 1f : (fadePlayingTime / fadeTime));
+                errorMessageTextColor.a = 1f - ((fadePlayingTime / fadeTime) > 1f ? 1f : (fadePlayingTime / fadeTime));
+                errorPanelImage.color = errorPanelColor;
+                errorMessageText.color = errorMessageTextColor;
+            }
+            else {
+                fadeState = FadeState.NonPlaying;
+                errorPanel.SetActive(false);
+            }
+        }
+        else if (fadeState == FadeState.RePlaying) {
+            fadeState = FadeState.Playing;
         }
     }
 
@@ -382,6 +435,17 @@ public class UIManager : MonoBehaviour
         if (!blessingButtonClick) {
             // 소지중인 축복이 1개도 없으면
             if (GameManager.instance.blessing == 0) {
+                Debug.Log("열매 버튼 누름");
+
+                if (GameManager.instance.blessing == 0) {
+                    ErrorMessage("요정의 축복이 존재하지 않습니다!");
+                }
+                return;
+            }
+            Debug.Log("EmptyFruitButton() = " + EmptyFruitButton());
+            // 열매가 하나도 심어져 있지 않으면
+            if (EmptyFruitButton() == false) {
+                ErrorMessage("심어져 있는 열매가 존재하지 않습니다!");
                 return;
             }
 
@@ -430,5 +494,59 @@ public class UIManager : MonoBehaviour
             // 버튼 클릭 소리 실행
             buttonClickAudio.Play();
         }
+    }
+
+    // 에러 메시지를 출력
+    public void ErrorMessage(string msg) {
+
+        fadePlayingTime = 0;
+        errorPanel.SetActive(true);
+        errorPanelImage.color = errorPanelImageBasicColor;
+        errorMessageText.color = errorMessageTextBasicColor;
+        errorMessageText.text = msg;
+
+        if (fadeState == FadeState.NonPlaying) {
+            fadeState = FadeState.Playing;
+        }
+        else if (fadeState == FadeState.Playing) {
+            fadeState = FadeState.RePlaying;
+        }
+        else {
+            Debug.Log("UIManager.instance.ErrorMessage() 예외");
+        }
+
+        //StartCoroutine("FadeOutErrorMessage");
+        //Debug.Log("코루틴 실행");
+    }
+/*
+    // 에러 패널을 시간이 지남에 따라 연하게 함
+    IEnumerator FadeOutErrorMessage() {
+        Debug.Log("코루틴 실행중");
+        
+        GameObject errorPanel = Instantiate(errorPanelPrefab, new Vector3(0, 0, 0), new Quaternion(0f, 0f, 0f, 0f));
+        Image errorPanelImage = errorPanel.GetComponent<Image>();
+        Color tempColor = errorPanelImage.color;
+
+        errorPanel.SetActive(true);
+        
+        while (tempColor.a > 0.0f) {
+			tempColor.a -= 0.1f;
+            errorPanelImage.color = tempColor;
+			yield return new WaitForSeconds(0.1f);
+        }
+
+        Destroy(errorPanel);
+
+    }*/
+
+    private bool EmptyFruitButton() {
+        for (int i = 0; i < fruit.Length; i++) {
+            if (fruit[i].fruitName != "") {
+
+                return true;
+            }
+        }
+
+        return false;
     }
 }

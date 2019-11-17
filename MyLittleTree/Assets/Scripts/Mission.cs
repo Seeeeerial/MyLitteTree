@@ -375,17 +375,17 @@ public class Mission : MonoBehaviour
                 missionListPanel[i].GetComponent<Image>().color = new Color(0f, 0f, 0f, 100/255f);
             }
         }
-
+/*
         for (int i = 0; i < panelNum.Length; i++) {
             Debug.Log("panelNum[" + i + "] = " + panelNum[i]);
         }
-
+*/
         
 
         for (int i = 0; i < panelNum.Length; i++) {
             int temp;
             temp = panelNum[i];
-            Debug.Log("temp = " + temp);
+            //Debug.Log("temp = " + temp);
             missionListPanelRectTransform[temp].localPosition = missionListPanelLocalPos[i];
         }
 
