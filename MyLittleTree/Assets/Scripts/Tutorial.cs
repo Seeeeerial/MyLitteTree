@@ -2,16 +2,25 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Tutorial : MonoBehaviour
 {
-    // Start is called before the first frame update
+	public GameObject tree;
+	public GameObject background;
+	public Text talk;
+
+	void Awake()
+	{
+
+	}
+
     void Start()
     {
         
     }
 
-    // Update is called once per frame
+ 
     void Update()
     {
         
