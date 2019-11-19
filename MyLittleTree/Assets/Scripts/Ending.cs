@@ -5,10 +5,8 @@ using UnityEngine.UI;
 
 public class Ending : MonoBehaviour
 {
-    // 요정 이미지 컴포넌트
-    public Image fairyImage;
     // 요정 스프라이트
-    public Sprite fairy;
+    public GameObject fairy;
     // 요정 말풍선
     public Text dialogueText;
     // 요정 대사, 개수 미 확정
@@ -22,9 +20,12 @@ public class Ending : MonoBehaviour
     {
         
     }
-
-    // 엔딩 실행 메서드
-    private void PlayEnding() {
+	void Update()
+	{
+		
+	}
+	// 엔딩 실행 메서드
+	private void PlayEnding() {
 
     }
 
