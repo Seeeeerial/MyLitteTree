@@ -21,7 +21,7 @@ public class Tutorial : MonoBehaviour
 
 	bool treeTouch;                     //나무 터치했는지
 	bool lighting;                      //빛 내는 중인지
-	enum chatState { chatting = 0, wait, next };//대사의 상태 chatting은 대사나오는중, wait는 터치 대기
+	enum chatState { chatting = 0, wait, next };//대사의 상태 chatting은 대사나오는중, wait는 터치 대기, next는 다음대사로
 	int nowChatting = (int)chatState.next;      //대사의 상태
 	int chatNum = 0;            //현재 대사가 무엇인지 결정
 	private string[] chatList;
@@ -51,7 +51,7 @@ public class Tutorial : MonoBehaviour
 				dog.transform.localPosition -= new Vector3(10f, 0f, 0f);	//개 움직임
 			else
 			{
-				ballon.SetActive(true);
+				ballon.transform.parent.gameObject.SetActive(true);
 				if (ballon.transform.localScale.y < 0.5)  //말풍선 나타내기
 					ballon.transform.localScale += new Vector3(0f, 0.1f, 0f);
 				else
