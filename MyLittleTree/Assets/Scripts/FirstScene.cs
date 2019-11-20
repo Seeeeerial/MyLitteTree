@@ -94,12 +94,14 @@ public class FirstScene : MonoBehaviour
     public void OnScreenClick() {
         if (CheckGameData()) {
             // 메인 씬 이동
+            LoadMainScene();
         }
         else {
             // 튜토리얼 씬 이동
+            LoadTutorialScene();
         }
 
-        LoadMainScene();
+        
     }
 
     // 튜토리얼 씬 이동

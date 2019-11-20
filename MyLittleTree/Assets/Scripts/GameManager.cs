@@ -32,12 +32,14 @@ public class GameManager : MonoBehaviour
     // 마지막으로 생성된 축복 시간으로 부터 지난 시간
     private float lastGenerateBlessingTime;
     // 축복 생성 주기(5분)
+    //private float ganerateBlessingTime = 300f;
     private float ganerateBlessingTime = 20f;
 
     // 다음 계절 까지 남은 시간
     private float nextSeasonRemainingTime;
 
     // 한 계절 당 주기(15분)
+    //private float seasonalChangeTime = 900f;
     private float seasonalChangeTime = 15f;
     // 계절 이름(나중에 삭제)
     private string[] seasonName = {"봄", "여름", "가을", "겨울"};
@@ -104,7 +106,15 @@ public class GameManager : MonoBehaviour
             GameManager.instance.QuitGame();
         }
 
-        
+        try {
+            // 재화를 불러오기
+            // 새 게임을 시작하고 튜토리얼을 본 후 아무것도 하지않고 게임을 종료한 뒤 게임을 다시 시작하면 저장된 게임 데이터가 없어 튜토리얼이 다시 실행되는 현상 방지
+            PlayerPrefs.SetInt(id + "Money", money);
+        }
+        catch (System.Exception e) {
+            Debug.Log(e);
+            UIManager.instance.ErrorMessage("파일 자동 저장 실패");
+        }
     }
 
     void Start() {

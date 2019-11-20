@@ -30,7 +30,8 @@ public class Mission : MonoBehaviour
         미션 목표
         max : 열매 수확 미션 수
     */
-    private int[] fruitHarvestObjective = {10, 20, 30, 50, 100};
+    //private int[] fruitHarvestObjective = {10, 20, 30, 50, 100};
+    private int[] fruitHarvestObjective = {1, 2, 3, 5, 10};
     /*
         열매 미션 달성 여부
         max : 열매 수확 미션 수
@@ -303,6 +304,8 @@ public class Mission : MonoBehaviour
         // 보상 지급 여부 저장
         getReward[index] = true;
 
+        CheckMissionAllClear();
+
         try {
             // 보상 수령 여부 저장
             PlayerPrefs.SetInt(GameManager.instance.id + "GetReward" + index,  getReward[index] == true ? 1 : 0);
@@ -338,6 +341,8 @@ public class Mission : MonoBehaviour
         // 5 : 열매 미션 수
         getReward[index + 5] = true;
 
+        CheckMissionAllClear();
+
         try {
             // 보상 수령 여부 저장
             PlayerPrefs.SetInt(GameManager.instance.id + "GetReward" + (index + 5),  getReward[index + 5] == true ? 1 : 0);
@@ -357,7 +362,15 @@ public class Mission : MonoBehaviour
 
     // 모든 미션을 클리어하고 모든 보상을 받으면 엔딩 씬 호출
     private void CheckMissionAllClear() {
+        for (int i = 0; i < getReward.Length; i++) {
+            if (getReward[i] == false) {
+                return;
+            }
+        }
+        // 게임 데이터 초기화
+        GameManager.instance.ResetGameData();
         // 엔딩 씬 호출
+        GameManager.instance.LoadEndingScene();
     }
 
     // 미션 달성 수 표시 텍스트 컴포넌트 갱신
