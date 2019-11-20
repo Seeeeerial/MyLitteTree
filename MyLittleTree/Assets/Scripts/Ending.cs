@@ -135,7 +135,7 @@ public class Ending : MonoBehaviour
 
 	// 엔딩 화면 클릭시 호출
 	public void OnCreditClick() {
-		SceneManager.LoadScene("MainScene");
+		SceneManager.LoadScene("FirstScene");
 	}
 
 	private IEnumerator Speeking(string narration)    //대사가 하나씩 나오기 위함
@@ -155,6 +155,6 @@ public class Ending : MonoBehaviour
 
 	public void OnSkipClick()       //스킵 눌렀을 때
 	{
-		SceneManager.LoadScene("MainScene");
+		SceneManager.LoadScene("FirstScene");
 	}
 }
