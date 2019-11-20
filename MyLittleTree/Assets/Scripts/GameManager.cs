@@ -45,7 +45,7 @@ public class GameManager : MonoBehaviour
     private int seasonIndex;
 
     // 최대 소지금
-    private int maxMoney = 99999;
+    private const int maxMoney = 99999;
 
     /*
         과일 구매가, 판매가, 성장 시간 정보
@@ -201,13 +201,18 @@ public class GameManager : MonoBehaviour
 
     // 게임 정보 초기화
     public void ResetGameData() {
-        
-        // 모든 키 값을 제거
-        PlayerPrefs.DeleteAll();
-        
+        try {
+            // 모든 키 값을 제거
+            PlayerPrefs.DeleteAll();
+            
+            // 처음 씬 불러오기
+            LoadFirstScene();
+        }
+        catch(System.Exception e) {
+            Debug.Log(e);
+            UIManager.instance.ErrorMessage("게임 초기화 실패");
+        }
 
-        // 처음 씬 불러오기
-        LoadFirstScene();
     }
 
     // 처음 씬 불러오기

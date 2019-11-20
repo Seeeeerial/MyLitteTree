@@ -62,7 +62,7 @@ public class UIManager : MonoBehaviour
     public GameObject[] animal = new GameObject[5];
 
     // 동물 활성화 여부
-    public bool[] animalActive = new bool[5];
+    private bool[] animalActive = new bool[5];
 
     // 축복 버튼 클릭 여부
     private bool blessingButtonClick = false;

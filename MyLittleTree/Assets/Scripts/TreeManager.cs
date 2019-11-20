@@ -11,8 +11,6 @@ public class TreeManager : MonoBehaviour
     private RectTransform mainTreeRT;
     // 메인 화면의 나무 이미지 컴포넌트
     private Image mainTreeImage;
-    // 나무 정보 패널
-    public GameObject treePanel;
     // 나무 패널 안의 나무 이미지 컴포넌트
     public Image treeImage;
     // 나무 정보 텍스트 컴포넌트
@@ -70,11 +68,12 @@ public class TreeManager : MonoBehaviour
             mission.TreeUpgradeMission(treeGrade);
         }
     }
-
+/*
     void Update()
     {
         //MenuAnimation();
     }
+*/
 /*
     private void MenuAnimation()        //메뉴가 커졌다 작아졌다 하면서 나오는 연출을 위한 함수
     {
@@ -164,8 +163,8 @@ public class TreeManager : MonoBehaviour
         if (treeGrade == 1) {
             // 열매 버튼 3개 재배치
             UIManager.instance.fruitButton[0].GetComponent<RectTransform>().anchoredPosition = new Vector2(0, -59);
-            UIManager.instance.fruitButton[1].GetComponent<RectTransform>().anchoredPosition = new Vector2(-37.5f, -125);
-            UIManager.instance.fruitButton[2].GetComponent<RectTransform>().anchoredPosition = new Vector2(37.5f, -125);
+            UIManager.instance.fruitButton[1].GetComponent<RectTransform>().anchoredPosition = new Vector2(-37.5f, -130);
+            UIManager.instance.fruitButton[2].GetComponent<RectTransform>().anchoredPosition = new Vector2(37.5f, -130);
         }
         else if (treeGrade == 2) {
             // 열매 버튼 4개 재배치
@@ -240,7 +239,7 @@ public class TreeManager : MonoBehaviour
         TreeRelocation();
         FruitRelocation();
 
-        TreeUpgradeButtonTextUpdate();
+        UpdateTreeUpgradeButtonText();
 
         // 버튼 클릭 소리 재생
         UIManager.instance.PlayButtonClickSound(0);
@@ -248,7 +247,7 @@ public class TreeManager : MonoBehaviour
 
     // 나무 패널 오픈 시 메인화면 Tree 오브젝트 OnClick에서 호출
     // 소지금에 따라 나무 업그레이드 버튼 텍스트, 활성화 비활성화 갱신
-    public void TreeUpgradeButtonTextUpdate() {
+    public void UpdateTreeUpgradeButtonText() {
         if (treeGrade == maxTreeGrade) {
             return;
         }

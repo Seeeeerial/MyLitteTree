@@ -12414,7 +12414,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 1
+    m_FontSize: 20
     m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 0
@@ -12425,7 +12425,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 0
+  m_Text: 10
 --- !u!222 &1379724032
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -15479,7 +15479,6 @@ MonoBehaviour:
   - {fileID: 254689579}
   - {fileID: 662927430}
   - {fileID: 197685924}
-  animalActive: 0000000000
 --- !u!4 &1713127743
 Transform:
   m_ObjectHideFlags: 0
@@ -18417,7 +18416,7 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
       - m_Target: {fileID: 1961238992}
-        m_MethodName: TreeUpgradeButtonTextUpdate
+        m_MethodName: UpdateTreeUpgradeButtonText
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -18476,7 +18475,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mission: {fileID: 2108301856}
-  treePanel: {fileID: 737293069}
   treeImage: {fileID: 21849295}
   treeText: {fileID: 940263018}
   treeSprite:
@@ -19737,7 +19735,7 @@ MonoBehaviour:
   - {fileID: 940750594}
   - {fileID: 1731634936}
   - {fileID: 608517654}
-  animalImpormationText:
+  animalInpormationText:
   - {fileID: 1798409785}
   - {fileID: 753559427}
   - {fileID: 1927161709}
@@ -20320,7 +20318,6 @@ MonoBehaviour:
   fruitHarvestCount: 0
   fruitAchievement: 0000000000
   treeAchievement: 0000000000
-  fruitHarvestReward: 640000002c010000e8030000d0070000a00f0000
   getReward: 00000000000000000000
   missionListPanel:
   - {fileID: 1982428045}

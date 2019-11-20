@@ -42,7 +42,7 @@ public class Mission : MonoBehaviour
     */
     public bool[] treeAchievement = new bool[5];
     // 수확 미션 보상
-    public int[] fruitHarvestReward = {100, 300, 1000, 2000, 4000};
+    private int[] fruitHarvestReward = {100, 300, 1000, 2000, 4000};
     // 나무 업그레이드 미션 보상
     private string[] treeUpgradeReward = {"Dog", "Cat", "Pig", "Goose", "GuineaPig"};
     private string[] treeUpgradeRewardKor = {"개", "고양이", "돼지", "거위", "기니피그"};
@@ -290,8 +290,15 @@ public class Mission : MonoBehaviour
     // 열매 미션 성공 보상
     // 보상 받기 버튼 클릭시 호출
     public void FruitMissionReward(int index) {
-        // 보상 지급
-        GameManager.instance.AddMoney(fruitHarvestReward[index]);
+        try {
+            // 보상 지급
+            GameManager.instance.AddMoney(fruitHarvestReward[index]);
+        } 
+        catch (System.Exception e) {
+            Debug.Log(e);
+            UIManager.instance.ErrorMessage("도전 과제 보상 받기 실패");
+        }
+        
 
         // 보상 지급 여부 저장
         getReward[index] = true;
@@ -316,8 +323,16 @@ public class Mission : MonoBehaviour
     // 나무 미션 성공 보상
     // 보상 받기 버튼 클릭시 호출
     public void TreeMissionReward(int index) {
-        // 보상 지급
-        UIManager.instance.SaveAnimalActive(index);
+        try {
+            // 보상 지급
+            UIManager.instance.SaveAnimalActive(index);
+        } 
+        catch (System.Exception e) {
+            Debug.Log(e);
+            UIManager.instance.ErrorMessage("도전 과제 보상 받기 실패");
+        }
+
+        
         
         // 보상 지급 여부 저장
         // 5 : 열매 미션 수

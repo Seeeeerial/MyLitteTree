@@ -8,12 +8,12 @@ public class AnimalCollection : MonoBehaviour
     // 동물 이미지 컴포넌트
     public Image[] animalImage = new Image[5];
     // 동물 정보가 들어가는 오브젝트
-    public Text[] animalImpormationText = new Text[5];
+    public Text[] animalInpormationText = new Text[5];
 
     // 동물 스프라이트
     public Sprite[] animalSprite = new Sprite[5];
     // 동물 정보
-    private string[] animalImpormation = {"이름 : 개\n특징 : 개 특징", 
+    private string[] animalInpormation = {"이름 : 개\n특징 : 개 특징", 
     "이름 : 고양이\n특징 : 고양이 특징", 
     "이름 : 돼지\n특징 : 돼지 특징", 
     "이름 : 거위\n특징 : 거위 특징", 
@@ -28,11 +28,11 @@ public class AnimalCollection : MonoBehaviour
         for (int i = 0; i < haveAnimal.Length; i++) {
             if (haveAnimal[i] == true) {
                 animalImage[i].sprite = animalSprite[i];
-                animalImpormationText[i].text = animalImpormation[i];
+                animalInpormationText[i].text = animalInpormation[i];
             }
             else {
                 animalImage[i].sprite = unopenedSprite;
-                animalImpormationText[i].text = "소유하지 않음";
+                animalInpormationText[i].text = "소유하지 않음";
             }
         }
     }

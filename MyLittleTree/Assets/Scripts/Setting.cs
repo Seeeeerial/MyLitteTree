@@ -105,6 +105,7 @@ public class Setting : MonoBehaviour
         }
         catch (System.Exception e) {
             Debug.Log(e);
+            UIManager.instance.ErrorMessage("사운드 조절 실패");
 
             // soundEffectOn을 Default 값인 true로 변경
             soundEffectOn = true;
