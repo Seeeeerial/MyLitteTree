@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 public class Tutorial : MonoBehaviour
 {
@@ -18,7 +17,7 @@ public class Tutorial : MonoBehaviour
 	public Text talk;					//대사
 	public GameObject ballon;			//말풍선
 	public GameObject tutorialCanvus;   //메뉴창들 있는 캔버스
-	public GameObject light;			//화면에 빛을 뿌리기위한 빛
+	public GameObject lightObject;			//화면에 빛을 뿌리기위한 빛
 
 	bool treeTouch;                     //나무 터치했는지
 	bool lighting;                      //빛 내는 중인지
@@ -119,20 +118,20 @@ public class Tutorial : MonoBehaviour
 		}
     }
 
-	public void treeTouched()		//나무 터치하면 튜토리얼시작
+	public void OnTreeClick()		//나무 터치하면 튜토리얼시작
 	{
 		treeTouch = true;
-		light.SetActive(true);
+		lightObject.SetActive(true);
 		lighting = true;
 		touchText.SetActive(false);
 		StartCoroutine(LightingAction());
 	}
 	private IEnumerator LightingAction()		//빛이 퍼지는 효과를 위한 함수
 	{
-		Color color = light.GetComponent<Image>().color;
-		while (light.transform.localScale.x < 10)
+		Color color = lightObject.GetComponent<Image>().color;
+		while (lightObject.transform.localScale.x < 10)
 		{
-			light.transform.localScale += new Vector3(0.1f, 0.1f, 0f);
+			lightObject.transform.localScale += new Vector3(0.1f, 0.1f, 0f);
 			yield return null;
 		}
 		tree.transform.GetChild(0).gameObject.SetActive(false);	//나무성장시키기
@@ -143,20 +142,19 @@ public class Tutorial : MonoBehaviour
 		while (color.a>0)				//빛이 희미해짐
 		{
 			color.a -= 0.02f;
-			light.GetComponent<Image>().color = color;
+			lightObject.GetComponent<Image>().color = color;
 			yield return null;
 		}
-		tutorialCanvus.SetActive(true);		//UI 키기
-		light.SetActive(false);				//원상복귀
-		light.transform.localScale = new Vector3(0f, 0f, 0f);
+		tutorialCanvus.SetActive(true);     //UI 키기
+		lightObject.SetActive(false);               //원상복귀
+		lightObject.transform.localScale = new Vector3(0f, 0f, 0f);
 		color.a = 1;
-		light.GetComponent<Image>().color = color;
+		lightObject.GetComponent<Image>().color = color;
 		lighting = false;
 		yield return new WaitForSeconds(1f);
-		StopCoroutine(LightingAction());		//코루틴 종료
 	}
 
-	public void ballonTouched()
+	public void OnBallonClick()		//대사 진행하려 터치할 때
 	{
 		if(nowChatting == (int)chatState.wait)
 		{
@@ -177,6 +175,9 @@ public class Tutorial : MonoBehaviour
 			yield return new WaitForSeconds(0.02f);
 		}
 		nowChatting = (int)chatState.wait;
-		StopCoroutine(Explaining("narration"));
+	}
+	public void OnSkipClick()		//스킵 눌렀을 때
+	{
+		SceneManager.LoadScene("MainScene");
 	}
 }
