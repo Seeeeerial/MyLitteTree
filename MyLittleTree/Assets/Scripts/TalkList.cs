@@ -5,8 +5,8 @@ using UnityEngine;
 public class TalkList : MonoBehaviour
 {
 	//대사를 저장하기 위해 만든 스크립트 입니다
-	public string[] tutoChat =
-		{
+	private string[] tutoChat =
+	{
 		"당신이 나무를 살려주셨군요!",			//0
 		"이 나무는 평범해 보이지만 원래 온갖 열매가 열릴 수 있고, 동물들이 쉬어가는 요정의 나무였어요.",	//1
 		"하지만 이기적인 사람이 이 나무를 베어가버리면서 모두 떠났죠.",			//2
@@ -29,7 +29,7 @@ public class TalkList : MonoBehaviour
 		"나무가 많이 커져서, 동물들이 모여들게 되면 이곳은 예쁜 경치가 될거에요!",	//19
 		"부디 힘내서, 나무를 다시 돌려놓을 수 있길 바래요!"	//20
 	};	//scene 전환
-	public string[] endingChat =
+	private string[] endingChat =
 	{
 		"이 나무를 다시 키워준 사람이 너구나!",		//0
 		"귀찮은 일이였을텐데, 끝까지 해내주어서 정말 고마워.",	//1

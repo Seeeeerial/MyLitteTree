@@ -34,7 +34,7 @@ public class Ending : MonoBehaviour
 	}
 	void Start()
     {
-        
+        dialogue = GameObject.Find("EndingManager").GetComponent<TalkList>().getEndChat();
     }
 	void Update()
 	{
@@ -119,7 +119,7 @@ public class Ending : MonoBehaviour
 		color.a = 1;
 		lightObject.GetComponent<Image>().color = color;
 
-		yield return new WaitForSeconds(3f);
+		yield return new WaitForSeconds(5f);
 		lightingState = (int)lightState.lightingEnd;
 	}
 
