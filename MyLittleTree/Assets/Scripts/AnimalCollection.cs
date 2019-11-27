@@ -13,11 +13,11 @@ public class AnimalCollection : MonoBehaviour
     // 동물 스프라이트
     public Sprite[] animalSprite = new Sprite[5];
     // 동물 정보
-    private string[] animalInpormation = {"이름 : 개\n특징 : 개 특징", 
-    "이름 : 고양이\n특징 : 고양이 특징", 
-    "이름 : 돼지\n특징 : 돼지 특징", 
-    "이름 : 거위\n특징 : 거위 특징", 
-    "이름 : 기니피그\n특징 : 기니피그 특징"};
+    private string[] animalInpormation = {"이름 : 개\n\n특징 : 인간 좋아함", 
+    "이름 : 고양이\n\n특징 : 인간을 자기보다 밑으로 생각함", 
+    "이름 : 돼지\n\n특징 : 농장에서 탈출하여 인간 무서워함", 
+    "이름 : 거위\n\n특징 : 인간이 가까이오면 공격하는 난폭한 성격", 
+    "이름 : 기니피그\n\n특징 : 인간에게 유기됨"};
     // 동물이 오픈되지 않았을 때 사용할 ? 이미지
     public Sprite unopenedSprite;
 

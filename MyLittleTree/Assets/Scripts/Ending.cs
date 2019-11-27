@@ -32,15 +32,12 @@ public class Ending : MonoBehaviour
 		bgm.clip = this.backgroundSound;
 		bgm.loop = true;
 	}
-	void Start()
-    {
-        dialogue = GameObject.Find("EndingManager").GetComponent<TalkList>().getEndChat();
-    }
+	
 	void Update()
 	{
 		if(!(bgm.isPlaying)) bgm.Play();
 		if (!(isFairyAppear))		//요정 움직이기
-			fairyAppear();
+			FairyAppear();
 		else
 		{
 			if (ballon.transform.localScale.y < 0.5f)       //말풍선 나타나기
@@ -74,7 +71,7 @@ public class Ending : MonoBehaviour
 		}
 	}
 	
-	private void fairyAppear()			//요정 등장용
+	private void FairyAppear()			//요정 등장용
 	{
 		if (fairy.transform.localPosition.x > 500)
 			fairy.transform.localPosition -= new Vector3(5f, 0f, 0f);

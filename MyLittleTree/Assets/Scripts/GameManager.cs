@@ -68,8 +68,7 @@ public class GameManager : MonoBehaviour
 
     // 게임 시작과 동시에 싱글톤을 구성
     void Awake() {
-        // 해상도 고정
-        Screen.SetResolution(1280, 720, true);
+        
 
         // 싱글톤 변수 instance가 비어있는가?
         if (instance == null)

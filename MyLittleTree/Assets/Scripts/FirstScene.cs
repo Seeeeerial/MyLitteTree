@@ -8,6 +8,11 @@ public class FirstScene : MonoBehaviour
     // MyLittleTree 식별자
     public string id = "MyLittleTree";
 
+    void Awake() {
+        // 해상도 고정
+        Screen.SetResolution(1280, 720, true);
+    }
+
     private bool CheckGameData() {
         if(PlayerPrefs.HasKey(id + "Money")) {
             Debug.Log("재화 존재");
