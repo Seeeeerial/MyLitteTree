@@ -399,10 +399,11 @@ public class Mission : MonoBehaviour
         미션 목록을 우선 순위로 정렬
         기존 방식으로 나열 후 재 정렬(패널의 위치를 바꾸는 형식)
         우선 순위(위쪽)
-        0. 원래 순서
         1. 미션을 달성 && 보상받지 않음
         2. 미션을 미달성
         3. 보상을 받음(조금 어둡게)
+        4. 열매 수확 도전과제 중 수확량이 작은 순
+        5. 나무 업그레이드 도전과제 중 나무 업그레이드 등급이 낮은 순
     */
     
     private void SortMission() {
@@ -410,63 +411,61 @@ public class Mission : MonoBehaviour
 
         int panelIndex = 0;
 
-        // 미션 달성 && 보상 받지 않은 미션 패널 트랜스폼 저장
-        for (int i = 0; i < 10; i++) {
-            if (i < fruitAchievement.Length) {
-                if (fruitAchievement[i] == true && getReward[i] == false) {
-                    panelNum[panelIndex++] = i;
+        try {
+            // 미션 달성 && 보상 받지 않은 미션 패널 트랜스폼 저장
+            for (int i = 0; i < 10; i++) {
+                if (i < fruitAchievement.Length) {
+                    if (fruitAchievement[i] == true && getReward[i] == false) {
+                        panelNum[panelIndex++] = i;
+                    }
+                }
+                else {
+                    if (treeAchievement[i - fruitAchievement.Length] == true && getReward[i] == false) {
+                        panelNum[panelIndex++] = i;
+                    }
                 }
             }
-            else {
-                if (treeAchievement[i - fruitAchievement.Length] == true && getReward[i] == false) {
-                    panelNum[panelIndex++] = i;
+
+            // 미션을 미달성한 미션 패널 트랜스폼 저장
+            for (int i = 0; i < 10; i++) {
+                if (i < fruitAchievement.Length) {
+                    if (fruitAchievement[i] == false) {
+                        panelNum[panelIndex++] = i;
+                    }
+                }
+                else {
+                    if (treeAchievement[i - fruitAchievement.Length] == false) {
+                        panelNum[panelIndex++] = i;
+                    }
                 }
             }
-        }
 
-        // 미션을 미달성한 미션 패널 트랜스폼 저장
-        for (int i = 0; i < 10; i++) {
-            if (i < fruitAchievement.Length) {
-                if (fruitAchievement[i] == false) {
+            // 보상을 받은 미션 패널 트랜스폼 저장
+            for (int i = 0; i < 10; i++) {
+                if (getReward[i] == true) {
                     panelNum[panelIndex++] = i;
+
+                    // 패널의 색상 어둡게
+                    missionListPanel[i].GetComponent<Image>().color = new Color(0f, 0f, 0f, 100/255f);
                 }
             }
-            else {
-                if (treeAchievement[i - fruitAchievement.Length] == false) {
-                    panelNum[panelIndex++] = i;
-                }
+
+            for (int i = 0; i < panelNum.Length; i++) {
+                int temp;
+                temp = panelNum[i];
+                //Debug.Log("temp = " + temp);
+                missionListPanelRectTransform[temp].localPosition = missionListPanelLocalPos[i];
+            } 
+        }
+        catch (System.Exception e) {
+            Debug.Log(e);
+            UIManager.instance.ErrorMessage("도전과제 정렬 실패");
+            
+            // 도전과제 정렬이 되지 않은 상태로 되돌림
+            for (int i = 0; i < missionListPanelRectTransform.Length; i++) {
+                missionListPanelRectTransform[i].localPosition = missionListPanelLocalPos[i];
             }
-        }
-
-        // 보상을 받은 미션 패널 트랜스폼 저장
-        for (int i = 0; i < 10; i++) {
-            if (getReward[i] == true) {
-                panelNum[panelIndex++] = i;
-
-                // 패널의 색상 어둡게
-                missionListPanel[i].GetComponent<Image>().color = new Color(0f, 0f, 0f, 100/255f);
-            }
-        }
-/*
-        for (int i = 0; i < panelNum.Length; i++) {
-            Debug.Log("panelNum[" + i + "] = " + panelNum[i]);
-        }
-*/
-        
-
-        for (int i = 0; i < panelNum.Length; i++) {
-            int temp;
-            temp = panelNum[i];
-            //Debug.Log("temp = " + temp);
-            missionListPanelRectTransform[temp].localPosition = missionListPanelLocalPos[i];
-        }
-
-/*
-        // 미션 목록 패널 위치 변경
-        for (int i = 0; i < missionListPanelRectTransform.Length; i++) {
-            missionListPanelRectTransform[panelNum[i]].localPosition = missionListPanelLocalPos[i];
-        }
- */       
+        } 
     }
 /*
     오류 해석
