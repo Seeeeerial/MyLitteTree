@@ -242,7 +242,7 @@ public class TreeManager : MonoBehaviour
         UpdateTreeUpgradeButtonText();
 
         // 버튼 클릭 소리 재생
-        UIManager.instance.PlayButtonClickSound(0);
+        UIManager.instance.PlayButtonClickSound();
     }
 
     // 나무 패널 오픈 시 메인화면 Tree 오브젝트 OnClick에서 호출

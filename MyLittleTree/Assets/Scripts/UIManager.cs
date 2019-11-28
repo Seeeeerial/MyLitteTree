@@ -122,9 +122,9 @@ public class UIManager : MonoBehaviour
     void Start() {
         // 열매 정보 텍스트 갱신
         for (int i = 0; i < fruitInformationText.Length; i++) {
-            fruitInformationText[i].text = "구매 가격 : " + GameManager.instance.fruitPurchasePrice[i] + 
-            "\n판매 가격 : " + GameManager.instance.fruitSellingPrice[i] + 
-            "\n성장 시간 : " + GameManager.instance.fruitRemainingTime[i];
+            fruitInformationText[i].text = "구매 가격 : " + GameManager.instance.GetFruitPurchasePrice(i) + 
+            "\n판매 가격 : " + GameManager.instance.GetFruitSellingPrice(i) + 
+            "\n성장 시간 : " + GameManager.instance.GetFruitRemainingTime(i);
         }
 
         UpdateFruitPlantingButton();
@@ -197,7 +197,7 @@ public class UIManager : MonoBehaviour
         // 소지금에따라 열매 심기 버튼 활성화/비활성화, 텍스트 변경
         for (int i = 0; i < fruitPlantingButton.Length; i++) {
             // 소지금이 열매 구매 가격보다 많으면
-            if (GameManager.instance.money >= GameManager.instance.fruitPurchasePrice[i]) {
+            if (GameManager.instance.money >= GameManager.instance.GetFruitPurchasePrice(i)) {
                 // 버튼 활성화
                 fruitPlantingButton[i].interactable = true;
                 // 버튼 텍스트 변경
@@ -264,7 +264,7 @@ public class UIManager : MonoBehaviour
         fruitPanel.SetActive(false);
 
         // 버튼 클릭 소리 재생
-        PlayButtonClickSound(0);
+        PlayButtonClickSound();
     }
 
     // 과일 버튼을 누르면 호출
@@ -315,7 +315,7 @@ public class UIManager : MonoBehaviour
         }
 
         // 버튼 클릭 소리 재생
-        PlayButtonClickSound(0);
+        PlayButtonClickSound();
     }
 
     // UI 버튼을 누르면 호출
@@ -374,7 +374,7 @@ public class UIManager : MonoBehaviour
         }
 
         // 버튼 클릭 소리 재생(위에 없는 것은 따로 추가)
-        PlayButtonClickSound(0);
+        PlayButtonClickSound();
     }
 
     // 열매 창의 X 버튼을 누르면 호출
@@ -407,7 +407,7 @@ public class UIManager : MonoBehaviour
         }
 
         // 버튼 클릭 소리 재생
-        PlayButtonClickSound(0);
+        PlayButtonClickSound();
     }
 
     // 동물 활성화 여부 불러오기
@@ -487,7 +487,7 @@ public class UIManager : MonoBehaviour
         }
 
         // 버튼 클릭 소리 재생
-        PlayButtonClickSound(0);
+        PlayButtonClickSound();
     }
 
     // 열매 버튼 Color 초기화
@@ -502,7 +502,7 @@ public class UIManager : MonoBehaviour
 
     // 버튼 클릭 시 호출
     // soundNum에 따른 사운드 재생
-    public void PlayButtonClickSound(int soundNum) {
+    public void PlayButtonClickSound() {
         if (setting.soundEffectOn == true) {
             // 버튼 클릭 소리 실행
             buttonClickAudio.Play();

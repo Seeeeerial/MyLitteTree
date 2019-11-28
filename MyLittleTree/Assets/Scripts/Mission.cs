@@ -164,12 +164,12 @@ public class Mission : MonoBehaviour
                     UIManager.instance.ErrorMessage("파일 자동 저장 실패");
                 }
 
+                // 미션 창 갱신
+                UpdateMission();
+
                 break;
             }
         }
-
-        // 미션 창 갱신
-        UpdateMission();
     }
 
     /*
@@ -243,7 +243,7 @@ public class Mission : MonoBehaviour
         }
     }
 
-    // 미션 보상 버튼과 버튼 텍스트 갱신
+    // 미션 보상 버튼 활성화 여부와 버튼 텍스트 갱신
     private void UpdateMissionRewardButton() {
         /*
             미션 미달성 || 보상 수령 함 : 보상 버튼 비활성화
@@ -320,7 +320,7 @@ public class Mission : MonoBehaviour
         UpdateMission();
 
         // 버튼 클릭 소리 재생
-        UIManager.instance.PlayButtonClickSound(0);
+        UIManager.instance.PlayButtonClickSound();
     }
 
     // 나무 미션 성공 보상
@@ -357,7 +357,7 @@ public class Mission : MonoBehaviour
         UpdateMission();
 
         // 버튼 클릭 소리 재생
-        UIManager.instance.PlayButtonClickSound(0);
+        UIManager.instance.PlayButtonClickSound();
     }
 
     // 모든 미션을 클리어하고 모든 보상을 받으면 엔딩 씬 호출
@@ -450,11 +450,9 @@ public class Mission : MonoBehaviour
                 }
             }
 
+            // 우선순위에 따라 도전과제 정렬
             for (int i = 0; i < panelNum.Length; i++) {
-                int temp;
-                temp = panelNum[i];
-                //Debug.Log("temp = " + temp);
-                missionListPanelRectTransform[temp].localPosition = missionListPanelLocalPos[i];
+                missionListPanelRectTransform[panelNum[i]].localPosition = missionListPanelLocalPos[i];
             } 
         }
         catch (System.Exception e) {
@@ -467,72 +465,5 @@ public class Mission : MonoBehaviour
             }
         } 
     }
-/*
-    오류 해석
-    private void SortMission() {
-        Vector3[] pos = new Vector3[10];
 
-        int posIndex = 0;
-
-        for (int i = 0; i < 10; i++) {
-            Debug.Log("misListPTra[" + i + "] : " + missionListPanelTransform[i].localPosition);
-            pos[i] = missionListPanelTransform[i].localPosition;
-            Debug.Log("pos[" + i + "] : " + pos[i]);
-        }
-
-        // 미션 달성 && 보상 받지 않은 미션 패널 트랜스폼 저장
-        for (int i = 0; i < 10; i++) {
-            if (i < fruitAchievement.Length) {
-                if (fruitAchievement[i] == true && getReward[i] == false) {
-                    pos[posIndex++] = missionListPanelTransform[i].localPosition;
-                    Debug.Log("패널 넣기 : " + i);
-                    Debug.Log("트랜스폼 번호 : " + (posIndex - 1));
-                }
-            }
-            else {
-                if (treeAchievement[i - fruitAchievement.Length] == true && getReward[i] == false) {
-                    pos[posIndex++] = missionListPanelTransform[i].localPosition;
-                    Debug.Log("패널 넣기 : " + i);
-                    Debug.Log("트랜스폼 번호 : " + (posIndex - 1));
-                }
-            }
-        }
-
-        // 미션을 미달성한 미션 패널 트랜스폼 저장
-        for (int i = 0; i < 10; i++) {
-            if (i < fruitAchievement.Length) {
-                if (fruitAchievement[i] == false) {
-                    pos[posIndex++] = missionListPanelTransform[i].localPosition;
-                    Debug.Log("패널 넣기 : " + i);
-                    Debug.Log("트랜스폼 번호 : " + (posIndex - 1));
-                }
-            }
-            else {
-                if (treeAchievement[i - fruitAchievement.Length] == false) {
-                    pos[posIndex++] = missionListPanelTransform[i].localPosition;
-                    Debug.Log("패널 넣기 : " + i);
-                    Debug.Log("트랜스폼 번호 : " + (posIndex - 1));
-                }
-            }
-        }
-
-        // 보상을 받은 미션 패널 트랜스폼 저장
-        for (int i = 0; i < 10; i++) {
-            if (getReward[i] == true) {
-                pos[posIndex++] = missionListPanelTransform[i].localPosition;
-                Debug.Log("패널 넣기 : " + i);
-                Debug.Log("트랜스폼 번호 : " + (posIndex - 1));
-
-                // 패널의 색상 어둡게
-                missionListPanel[i].GetComponent<Image>().color = new Color(0f, 0f, 0f, 100/255f);
-            }
-        }
-
-
-        // 미션 목록 패널 위치 변경
-        for (int i = 0; i < pos.Length; i++) {
-            missionListPanelTransform[i].localPosition = pos[i];
-        }
-    }
-*/
 }

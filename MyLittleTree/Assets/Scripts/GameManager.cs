@@ -57,9 +57,9 @@ public class GameManager : MonoBehaviour
         [3] : 포도
         [4] : 한라봉
     */
-    public float[] fruitPurchasePrice = {0f, 2f, 5f, 10f, 20f};
-    public float[] fruitSellingPrice = {1f, 5f, 25f, 150f, 500f};
-    public float[] fruitRemainingTime = {10f, 30f, 60f, 300f, 600f};
+    private float[] fruitPurchasePrice = {0f, 2f, 5f, 10f, 20f};
+    private float[] fruitSellingPrice = {1f, 5f, 25f, 150f, 500f};
+    private float[] fruitRemainingTime = {10f, 30f, 60f, 300f, 600f};
 /*
     public float[] fruitPurchasePrice = {0f, 3f, 5f, 10f, 30f};
     public float[] fruitSellingPrice = {3f, 10f, 30f, 70f, 300f};
@@ -86,6 +86,10 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
         }
 
+
+    }
+
+    void Start() {
         try {
             // 게임 데이터 불러오기
             // 재화를 불러오기
@@ -114,9 +118,6 @@ public class GameManager : MonoBehaviour
             Debug.Log(e);
             UIManager.instance.ErrorMessage("파일 자동 저장 실패");
         }
-    }
-
-    void Start() {
 
         // 처음 실행될 때 저장되었던 재화를 불러와서 게임 창에 갱신
         UIManager.instance.UpdateMoney(money);
@@ -239,5 +240,17 @@ public class GameManager : MonoBehaviour
     public void QuitGame() {
         Application.Quit();
         return;
+    }
+
+    public float GetFruitPurchasePrice(int index) {
+        return fruitPurchasePrice[index];
+    }
+
+    public float GetFruitSellingPrice(int index) {
+        return fruitSellingPrice[index];
+    }
+
+    public float GetFruitRemainingTime(int index) {
+        return fruitRemainingTime[index];
     }
 }

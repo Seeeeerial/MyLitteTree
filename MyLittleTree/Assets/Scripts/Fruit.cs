@@ -171,10 +171,11 @@ public class Fruit : MonoBehaviour
             return;
         }
 
-        sellingPrice = GameManager.instance.fruitSellingPrice[idx];
-        remainingTime = GameManager.instance.fruitRemainingTime[idx];
+        sellingPrice = GameManager.instance.GetFruitSellingPrice(idx);
+        remainingTime = GameManager.instance.GetFruitRemainingTime(idx);
+
         // 구매 가격만큼 소지금 감소
-        GameManager.instance.SubMoney(Mathf.RoundToInt(GameManager.instance.fruitPurchasePrice[idx]));
+        GameManager.instance.SubMoney(Mathf.RoundToInt(GameManager.instance.GetFruitPurchasePrice(idx)));
         // 열매 이미지 스프라이트 변경
         fruitButtonImage.sprite = fruitSprite[idx];
 

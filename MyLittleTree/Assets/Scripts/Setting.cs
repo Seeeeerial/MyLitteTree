@@ -86,7 +86,7 @@ public class Setting : MonoBehaviour
         }
 
         // 버튼 클릭 소리 재생
-        UIManager.instance.PlayButtonClickSound(0);
+        UIManager.instance.PlayButtonClickSound();
     }
 
     // 효과음 ON/OFF 버튼 클릭시 호출
@@ -123,7 +123,7 @@ public class Setting : MonoBehaviour
         }
 
         // 버튼 클릭 소리 재생
-        UIManager.instance.PlayButtonClickSound(0);
+        UIManager.instance.PlayButtonClickSound();
     }
 
     // 게임 초기화 버튼 클릭시 호출
@@ -131,6 +131,6 @@ public class Setting : MonoBehaviour
         GameManager.instance.ResetGameData();
 
         // 버튼 클릭 소리 재생
-        UIManager.instance.PlayButtonClickSound(0);
+        UIManager.instance.PlayButtonClickSound();
     }
 }
