@@ -148,7 +148,7 @@ public class Mission : MonoBehaviour
         FruitMissionAchievementCheck();
     }
 
-    // 미션 달성 여부 체크
+    // 열매 수확 미션 달성 여부 체크
     private void FruitMissionAchievementCheck() {
         for (int i = 0; i < fruitAchievement.Length; i++) {
             // 완료하지 못한 미션 중 미션 조건이 충족 됨
@@ -178,6 +178,10 @@ public class Mission : MonoBehaviour
         Ex) 1단계 업그레이드 -> 2단계 업그레이드
     */
     public void TreeUpgradeMission(int treeGrade) {
+        if (treeAchievement[treeGrade - 1] == true) {
+            return;
+        }
+
         treeAchievement[treeGrade - 1] = true;
 
         try {
@@ -192,102 +196,7 @@ public class Mission : MonoBehaviour
         // 미션 창 갱신
         UpdateMission();
     }
-
-    // 미션 창 갱신 && 미션 달성 수 표시 텍스트 갱신
-    private void UpdateMission() {
-        try {
-            UpdateMissionInformationText();
-            UpdateMissionRewardButton();
-            SortMission();
-
-            // 미션 달성 수 표시 텍스트 갱신
-            UpdateAchievementCountText();
-        }
-        catch (System.Exception e) {
-            Debug.Log(e);
-            UIManager.instance.ErrorMessage("도전과제 달성 표시 오류");
-        }
-    }
-
-    // 미션 설명 텍스트 갱신
-    private void UpdateMissionInformationText() {
-        for (int i = 0; i < missionText.Length; i++) {
-            if (i < 5) {
-                // 현재 수확 미션 진행도를 현재 열매 수확 횟수가 목표 수확 횟수보다 많으면 목표 수확 횟수로 출력
-                missionText[i].text = "열매 수확 횟수\n";
-                if (fruitHarvestCount <= fruitHarvestObjective[i]) {
-                    missionText[i].text += fruitHarvestCount;
-                }
-                else {
-                    missionText[i].text += fruitHarvestObjective[i];
-                }
-                missionText[i].text += "/" + fruitHarvestObjective[i];
-            }
-            else {
-                missionText[i].text = "나무 " + (i - 4) + "등급 달성";
-            }
-        }
-    }
-
-    // 미션 달성 여부 텍스트 갱신
-    private void UpdateMissionRewardText() {
-        for (int i = 0; i < missionRewardText.Length; i++) {
-            if (i < 5) {
-                //missionAchievementText[i].text = (fruitAchievement[i] == true ? "달성" : "미달성");
-                missionRewardText[i].text = "보상\n요정의 빛 " + fruitHarvestReward[i];
-            }
-            else {
-                //missionAchievementText[i].text = (treeAchievement[i - 5] == true ? "달성" : "미달성");
-                missionRewardText[i].text = "보상\n" + treeUpgradeRewardKor[i - 5];
-            }
-        }
-    }
-
-    // 미션 보상 버튼 활성화 여부와 버튼 텍스트 갱신
-    private void UpdateMissionRewardButton() {
-        /*
-            미션 미달성 || 보상 수령 함 : 보상 버튼 비활성화
-            미션 달성 && 보상 수령 안함 : 보상 버튼 활성화
-        */
-        for (int i = 0; i < rewardButton.Length; i++) {
-            // 열매 수확 미션
-            if (i < 5) {
-                if (fruitAchievement[i] == false) {
-                    rewardButton[i].interactable = false;
-                    rewardButton[i].GetComponentInChildren<Text>().text = "미달성";
-                }
-                else if (getReward[i] == true) {
-                    rewardButton[i].interactable = false;
-                    rewardButton[i].GetComponentInChildren<Text>().text = "수령 완료";
-                }
-                else if (fruitAchievement[i] == true && getReward[i] == false) {
-                    rewardButton[i].interactable = true;
-                    rewardButton[i].GetComponentInChildren<Text>().text = "보상 수령";
-                }
-                else {
-                    Debug.Log("열매 수확 미션 버튼 예외");
-                }
-            }
-            else {
-                if (treeAchievement[i - 5] == false) {
-                    rewardButton[i].interactable = false;
-                    rewardButton[i].GetComponentInChildren<Text>().text = "미달성";
-                }
-                else if (getReward[i] == true) {
-                    rewardButton[i].interactable = false;
-                    rewardButton[i].GetComponentInChildren<Text>().text = "수령 완료";
-                }
-                else if (treeAchievement[i - 5] == true && getReward[i] == false) {
-                    rewardButton[i].interactable = true;
-                    rewardButton[i].GetComponentInChildren<Text>().text = "보상 수령";
-                }
-                else {
-                    Debug.Log("나무 업그레이드 미션 버튼 예외");
-                }
-            }
-        }
-    }
-    
+        
     // 열매 미션 성공 보상
     // 보상 받기 버튼 클릭시 호출
     public void FruitMissionReward(int index) {
@@ -360,40 +269,102 @@ public class Mission : MonoBehaviour
         UIManager.instance.PlayButtonClickSound();
     }
 
-    // 모든 미션을 클리어하고 모든 보상을 받으면 엔딩 씬 호출
-    private void CheckMissionAllClear() {
-        for (int i = 0; i < getReward.Length; i++) {
-            if (getReward[i] == false) {
-                return;
+    // 미션 보상 텍스트 변경
+    private void UpdateMissionRewardText() {
+        for (int i = 0; i < missionRewardText.Length; i++) {
+            if (i < 5) {
+                //missionAchievementText[i].text = (fruitAchievement[i] == true ? "달성" : "미달성");
+                missionRewardText[i].text = "보상\n요정의 빛 " + fruitHarvestReward[i];
+            }
+            else {
+                //missionAchievementText[i].text = (treeAchievement[i - 5] == true ? "달성" : "미달성");
+                missionRewardText[i].text = "보상\n" + treeUpgradeRewardKor[i - 5];
             }
         }
-        // 게임 데이터 초기화
-        GameManager.instance.ResetGameData();
-        // 엔딩 씬 호출
-        GameManager.instance.LoadEndingScene();
     }
 
-    // 미션 달성 수 표시 텍스트 컴포넌트 갱신
-    private void UpdateAchievementCountText() {
-        int achievementCount = 0;
+    // 미션 창 갱신 && 미션 달성 수 표시 텍스트 갱신
+    private void UpdateMission() {
+        try {
+            UpdateMissionInformationText();
+            UpdateMissionRewardButton();
+            SortMission();
 
-        for (int i = 0; i < fruitAchievement.Length + treeAchievement.Length; i++) {
-            if (i < fruitAchievement.Length) {
-                // 열매 미션을 달성하고 보상을 받지 않음
-                if (fruitAchievement[i] == true && getReward[i] == false) {
-                    achievementCount++;
+            // 미션 달성 수 표시 텍스트 갱신
+            UpdateAchievementCountText();
+        }
+        catch (System.Exception e) {
+            Debug.Log(e);
+            UIManager.instance.ErrorMessage("도전과제 달성 표시 오류");
+        }
+    }
+
+    // 미션 설명 텍스트 갱신
+    private void UpdateMissionInformationText() {
+        for (int i = 0; i < missionText.Length; i++) {
+            if (i < 5) {
+                // 현재 수확 미션 진행도를 현재 열매 수확 횟수가 목표 수확 횟수보다 많으면 목표 수확 횟수로 출력
+                missionText[i].text = "열매 수확 횟수\n";
+                if (fruitHarvestCount <= fruitHarvestObjective[i]) {
+                    missionText[i].text += fruitHarvestCount;
+                }
+                else {
+                    missionText[i].text += fruitHarvestObjective[i];
+                }
+                missionText[i].text += "/" + fruitHarvestObjective[i];
+            }
+            else {
+                missionText[i].text = "나무 " + (i - 4) + "등급 달성";
+            }
+        }
+    }
+
+
+    // 미션 보상 버튼 활성화 여부 변경과 버튼 텍스트 갱신
+    private void UpdateMissionRewardButton() {
+        /*
+            미션 미달성 || 보상 수령 함 : 보상 버튼 비활성화
+            미션 달성 && 보상 수령 안함 : 보상 버튼 활성화
+        */
+        for (int i = 0; i < rewardButton.Length; i++) {
+            // 열매 수확 미션
+            if (i < 5) {
+                if (fruitAchievement[i] == false) {
+                    rewardButton[i].interactable = false;
+                    rewardButton[i].GetComponentInChildren<Text>().text = "미달성";
+                }
+                else if (getReward[i] == true) {
+                    rewardButton[i].interactable = false;
+                    rewardButton[i].GetComponentInChildren<Text>().text = "수령 완료";
+                }
+                else if (fruitAchievement[i] == true && getReward[i] == false) {
+                    rewardButton[i].interactable = true;
+                    rewardButton[i].GetComponentInChildren<Text>().text = "보상 수령";
+                }
+                else {
+                    Debug.Log("열매 수확 미션 버튼 예외");
                 }
             }
             else {
-                if (treeAchievement[i - fruitAchievement.Length] == true && getReward[i] == false) {
-                    achievementCount++;
+                if (treeAchievement[i - 5] == false) {
+                    rewardButton[i].interactable = false;
+                    rewardButton[i].GetComponentInChildren<Text>().text = "미달성";
+                }
+                else if (getReward[i] == true) {
+                    rewardButton[i].interactable = false;
+                    rewardButton[i].GetComponentInChildren<Text>().text = "수령 완료";
+                }
+                else if (treeAchievement[i - 5] == true && getReward[i] == false) {
+                    rewardButton[i].interactable = true;
+                    rewardButton[i].GetComponentInChildren<Text>().text = "보상 수령";
+                }
+                else {
+                    Debug.Log("나무 업그레이드 미션 버튼 예외");
                 }
             }
         }
-
-        // 미션 달성 수 표시 텍스트 갱신
-        achievementCountText.text = "" + achievementCount;
     }
+
 
     /*
         미션 목록을 우선 순위로 정렬
@@ -466,4 +437,39 @@ public class Mission : MonoBehaviour
         } 
     }
 
+    // 미션 달성 수 표시 텍스트 컴포넌트 갱신
+    private void UpdateAchievementCountText() {
+        int achievementCount = 0;
+
+        for (int i = 0; i < fruitAchievement.Length + treeAchievement.Length; i++) {
+            if (i < fruitAchievement.Length) {
+                // 열매 미션을 달성하고 보상을 받지 않음
+                if (fruitAchievement[i] == true && getReward[i] == false) {
+                    achievementCount++;
+                }
+            }
+            else {
+                if (treeAchievement[i - fruitAchievement.Length] == true && getReward[i] == false) {
+                    achievementCount++;
+                }
+            }
+        }
+
+        // 미션 달성 수 표시 텍스트 갱신
+        achievementCountText.text = "" + achievementCount;
+    }
+
+
+    // 모든 미션 보상을 받으면 엔딩 씬 호출
+    private void CheckMissionAllClear() {
+        for (int i = 0; i < getReward.Length; i++) {
+            if (getReward[i] == false) {
+                return;
+            }
+        }
+        // 게임 데이터 초기화
+        GameManager.instance.ResetGameData();
+        // 엔딩 씬 호출
+        GameManager.instance.LoadEndingScene();
+    }
 }

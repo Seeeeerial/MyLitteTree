@@ -36,11 +36,6 @@ public class Tutorial : MonoBehaviour
 		bgm.loop = true;
 	}
 
-    void Start()
-    {
-        
-    }
-
  
     void Update()
     {

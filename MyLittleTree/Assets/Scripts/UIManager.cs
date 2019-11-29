@@ -187,7 +187,7 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    // 재화 갱신
+    // 메인 화면의 재화 갱신
     public void UpdateMoney(int money) {
         moneyText.text = "" + money;
     }
@@ -294,17 +294,13 @@ public class UIManager : MonoBehaviour
 
             // 수확 미션 진행도 갱신
             mission.HarvestMission();
-
-            // 축복 버튼을 누른 상태로 수확을 하면 축복 버튼 뗌
-            if (blessingButtonClick) {
-                OnBlessingButtonClick();
-            }
         }
         // 축복 버튼이 눌려져 있음 && 축복을 받을 수 있는 상태(Fruit.GiveBlessing()) -> 축복 주기
         else if (blessingButtonClick == true && fruit.GiveBlessing() == true) {
             // 축복 사용
             fruit.UseBlessing();
         }
+        // 예외 확인 용도
         else {
             Debug.Log("Fruit.OnFruitButtonClick()이 어떠한 수행도 하지 않음");
         }
@@ -410,7 +406,7 @@ public class UIManager : MonoBehaviour
         PlayButtonClickSound();
     }
 
-    // 동물 활성화 여부 불러오기
+    // 동물 활성화 여부 불러오기 및 동물 활성화
     public void LoadAnimalActive() {
         for (int i = 0; i < animalActive.Length; i++) {
             try {
@@ -448,11 +444,7 @@ public class UIManager : MonoBehaviour
         if (!blessingButtonClick) {
             // 소지중인 축복이 1개도 없으면
             if (GameManager.instance.blessing == 0) {
-                Debug.Log("열매 버튼 누름");
-
-                if (GameManager.instance.blessing == 0) {
-                    ErrorMessage("요정의 축복이 존재하지 않습니다!");
-                }
+                ErrorMessage("요정의 축복이 존재하지 않습니다!");
                 return;
             }
             Debug.Log("EmptyFruitButton() = " + EmptyFruitButton());

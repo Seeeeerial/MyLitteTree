@@ -110,7 +110,7 @@ public class GameManager : MonoBehaviour
         }
 
         try {
-            // 재화를 불러오기
+            // 재화를 저장
             // 새 게임을 시작하고 튜토리얼을 본 후 아무것도 하지않고 게임을 종료한 뒤 게임을 다시 시작하면 저장된 게임 데이터가 없어 튜토리얼이 다시 실행되는 현상 방지
             PlayerPrefs.SetInt(id + "Money", money);
         }
@@ -187,6 +187,7 @@ public class GameManager : MonoBehaviour
         SetMoney(money - subMoney);
     }
 
+    // 재화를 저장 및 메인 화면에 적용
     private void SetMoney(int setMoney) {
         money = setMoney;
         // 소지금이 최대 소지금보다 많아지면 소지금을 최대 소지금으로 변경
@@ -209,7 +210,7 @@ public class GameManager : MonoBehaviour
         blessing--;
     }
 
-    // 게임 정보 초기화
+    // 저장된 모든 게임 데이터 삭제
     public void ResetGameData() {
         try {
             // 모든 키 값을 제거
@@ -242,14 +243,20 @@ public class GameManager : MonoBehaviour
         return;
     }
 
+    // 열매의 구매가 반환
+    // Fruit.Set(string)에서 호출
     public float GetFruitPurchasePrice(int index) {
         return fruitPurchasePrice[index];
     }
 
+    // 열매의 판매가 반환
+    // Fruit.Set(string)에서 호출
     public float GetFruitSellingPrice(int index) {
         return fruitSellingPrice[index];
     }
 
+    // 열매의 성장 시간 반환
+    // Fruit.Set(string)에서 호출
     public float GetFruitRemainingTime(int index) {
         return fruitRemainingTime[index];
     }

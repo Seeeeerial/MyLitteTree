@@ -202,6 +202,26 @@ public class TreeManager : MonoBehaviour
         }
     }
 
+    // 나무 업그레이드 버튼을 클릭할 경우
+    public void OnUpgradeButtonClick() {
+        // 업그레이드 비용이 부족한 경우(업그레이드 비용이 부족해도 버튼을 비활성화하지 않을 때 사용)
+        // || 나무 등급이 최고 등급인 경우
+        if (!(GameManager.instance.money >= treeUpgradeCost[treeGrade - 1]) || treeGrade == maxTreeGrade) {
+            return;
+        }
+
+        UpgradeTree();
+        
+        UpdateTreePanel();
+        TreeRelocation();
+        FruitRelocation();
+
+        UpdateTreeUpgradeButtonText();
+
+        // 버튼 클릭 소리 재생
+        UIManager.instance.PlayButtonClickSound();
+    }
+
     // 나무 업그레이드 메서드
     private void UpgradeTree() {
         // 업그레이드 비용만큼 재화 감소
@@ -223,26 +243,6 @@ public class TreeManager : MonoBehaviour
 
         // 나무 업그레이드 미션 갱신
         mission.TreeUpgradeMission(treeGrade);
-    }
-
-    // 나무 업그레이드 버튼을 클릭할 경우
-    public void OnUpgradeButtonClick() {
-        // 업그레이드 비용이 부족한 경우(업그레이드 비용이 부족해도 버튼을 비활성화하지 않을 때 사용)
-        // || 나무 등급이 최고 등급인 경우
-        if (!(GameManager.instance.money >= treeUpgradeCost[treeGrade - 1]) || treeGrade == maxTreeGrade) {
-            return;
-        }
-
-        UpgradeTree();
-        
-        UpdateTreePanel();
-        TreeRelocation();
-        FruitRelocation();
-
-        UpdateTreeUpgradeButtonText();
-
-        // 버튼 클릭 소리 재생
-        UIManager.instance.PlayButtonClickSound();
     }
 
     // 나무 패널 오픈 시 메인화면 Tree 오브젝트 OnClick에서 호출
