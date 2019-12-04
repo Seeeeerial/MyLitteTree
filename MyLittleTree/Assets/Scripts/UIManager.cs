@@ -270,6 +270,11 @@ public class UIManager : MonoBehaviour
     // 과일 버튼을 누르면 호출
     // 매개변수로 열매 버튼의 id(식별자를 받음 -> index)
     public void OnFruitButtonClick(int idx) {
+        if (!(idx >= 0 && idx <= 6)) {
+            Debug.Log("UIManager.OnFruitButtonClick(int idx)의 idx값 오류");
+            GameManager.instance.QuitGame();
+        }
+
         index = idx;
 
         Fruit fruit = fruitButton[index].GetComponent<Fruit>();
@@ -343,7 +348,7 @@ public class UIManager : MonoBehaviour
                 break;
             default:
                 // 잘못된 panelName이 온 경우
-                break;
+                return;
         }
 
         if (panel.activeSelf == false) {
@@ -399,7 +404,7 @@ public class UIManager : MonoBehaviour
                 break;
             default:
                 // 잘못된 panelName이 온 경우
-                break;
+                return;
         }
 
         // 버튼 클릭 소리 재생
@@ -424,6 +429,11 @@ public class UIManager : MonoBehaviour
     // 동물 활성화 및 저장
     // Mission의 TreeMissionReward에서 호출
     public void SaveAnimalActive(int index) {
+        if (!(index >= 0 && index <= 4)) {
+            Debug.Log("UIManager.SaveAnimalActive(int index)의 index값 오류");
+            GameManager.instance.QuitGame();
+        }
+
         animalActive[index] = true;
 
         animal[index].SetActive(animalActive[index]);

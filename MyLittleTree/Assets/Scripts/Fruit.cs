@@ -167,7 +167,7 @@ public class Fruit : MonoBehaviour
             idx = 4;
         }
         else {
-            Debug.Log("열매 심기 실패");
+            Debug.Log("Fruit.Set(string) : 열매 이름이 존재하지 않음");
             return;
         }
 

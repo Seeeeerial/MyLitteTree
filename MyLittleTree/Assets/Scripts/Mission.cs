@@ -178,6 +178,11 @@ public class Mission : MonoBehaviour
         Ex) 1단계 업그레이드 -> 2단계 업그레이드
     */
     public void TreeUpgradeMission(int treeGrade) {
+        if (!(treeGrade >= 1 && treeGrade <= 5)) {
+            Debug.Log("TreeUpgradeMission(int treeGrade)의 treeGrade값 오류");
+            GameManager.instance.QuitGame();
+        }
+
         if (treeAchievement[treeGrade - 1] == true) {
             return;
         }
@@ -200,6 +205,11 @@ public class Mission : MonoBehaviour
     // 열매 미션 성공 보상
     // 보상 받기 버튼 클릭시 호출
     public void FruitMissionReward(int index) {
+        if (!(index >= 0 && index <= 4)) {
+            Debug.Log("Mission.FruitMissionReward(int index)의 index값 오류");
+            QuitGame();
+        }
+
         try {
             // 보상 지급
             GameManager.instance.AddMoney(fruitHarvestReward[index]);
@@ -235,6 +245,11 @@ public class Mission : MonoBehaviour
     // 나무 미션 성공 보상
     // 보상 받기 버튼 클릭시 호출
     public void TreeMissionReward(int index) {
+        if (!(index >= 0 && index <= 4)) {
+            Debug.Log("Mission.TreeMissionReward(int index)의 index값 오류");
+            QuitGame();
+        }
+
         try {
             // 보상 지급
             UIManager.instance.SaveAnimalActive(index);

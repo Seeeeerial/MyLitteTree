@@ -179,16 +179,30 @@ public class GameManager : MonoBehaviour
 
     // 재화를 얻음
     public void AddMoney(int addMoney) {
+        if (addMoney < 0) {
+            SubMoney(addMoney * -1);
+            return;
+        }
+
         SetMoney(money + addMoney);
     }
 
     // 재화를 지불
     public void SubMoney(int subMoney) {
+        if (subMoney < 0) {
+            AddMoney(subMoney * -1);
+            return;
+        }
+
         SetMoney(money - subMoney);
     }
 
     // 재화를 저장 및 메인 화면에 적용
     private void SetMoney(int setMoney) {
+        if (setMoney < 0) {
+            setMoney = 0;
+        }
+
         money = setMoney;
         // 소지금이 최대 소지금보다 많아지면 소지금을 최대 소지금으로 변경
         if (money > maxMoney) {
@@ -246,18 +260,33 @@ public class GameManager : MonoBehaviour
     // 열매의 구매가 반환
     // Fruit.Set(string)에서 호출
     public float GetFruitPurchasePrice(int index) {
+        if (!(index >= 0 && index <= 4)) {
+            Debug.Log("GameManager.GetFruitPurchasePrice(int index)의 index값 오류");
+            QuitGame();
+        }
+
         return fruitPurchasePrice[index];
     }
 
     // 열매의 판매가 반환
     // Fruit.Set(string)에서 호출
     public float GetFruitSellingPrice(int index) {
+        if (!(index >= 0 && index <= 4)) {
+            Debug.Log("GameManager.GetFruitSellingPrice(int index)의 index값 오류");
+            QuitGame();
+        }
+
         return fruitSellingPrice[index];
     }
 
     // 열매의 성장 시간 반환
     // Fruit.Set(string)에서 호출
     public float GetFruitRemainingTime(int index) {
+        if (!(index >= 0 && index <= 4)) {
+            Debug.Log("GameManager.GetFruitRemainingTime(int index)의 index값 오류");
+            QuitGame();
+        }
+
         return fruitRemainingTime[index];
     }
 }
