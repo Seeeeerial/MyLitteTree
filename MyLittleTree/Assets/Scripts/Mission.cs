@@ -207,7 +207,7 @@ public class Mission : MonoBehaviour
     public void FruitMissionReward(int index) {
         if (!(index >= 0 && index <= 4)) {
             Debug.Log("Mission.FruitMissionReward(int index)의 index값 오류");
-            QuitGame();
+            GameManager.instance.QuitGame();
         }
 
         try {
@@ -247,7 +247,7 @@ public class Mission : MonoBehaviour
     public void TreeMissionReward(int index) {
         if (!(index >= 0 && index <= 4)) {
             Debug.Log("Mission.TreeMissionReward(int index)의 index값 오류");
-            QuitGame();
+            GameManager.instance.QuitGame();
         }
 
         try {
@@ -354,7 +354,7 @@ public class Mission : MonoBehaviour
                 }
                 else if (fruitAchievement[i] == true && getReward[i] == false) {
                     rewardButton[i].interactable = true;
-                    rewardButton[i].GetComponentInChildren<Text>().text = "보상 수령";
+                    rewardButton[i].GetComponentInChildren<Text>().text = "보상 받기";
                 }
                 else {
                     Debug.Log("열매 수확 미션 버튼 예외");
@@ -371,7 +371,7 @@ public class Mission : MonoBehaviour
                 }
                 else if (treeAchievement[i - 5] == true && getReward[i] == false) {
                     rewardButton[i].interactable = true;
-                    rewardButton[i].GetComponentInChildren<Text>().text = "보상 수령";
+                    rewardButton[i].GetComponentInChildren<Text>().text = "보상 받기";
                 }
                 else {
                     Debug.Log("나무 업그레이드 미션 버튼 예외");

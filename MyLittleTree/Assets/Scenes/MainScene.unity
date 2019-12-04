@@ -2190,24 +2190,6 @@ MonoBehaviour:
   id: MyLittleTree
   money: 0
   blessing: 0
-  fruitPurchasePrice:
-  - 0
-  - 2
-  - 5
-  - 10
-  - 20
-  fruitSellingPrice:
-  - 1
-  - 5
-  - 25
-  - 150
-  - 500
-  fruitRemainingTime:
-  - 10
-  - 30
-  - 60
-  - 300
-  - 600
 --- !u!4 &247673487
 Transform:
   m_ObjectHideFlags: 0
@@ -15823,7 +15805,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uCD08\uAE30\uD654 \uBC84\uD2BC"
+  m_Text: "\uAC8C\uC784 \uCD08\uAE30\uD654"
 --- !u!222 &1745564920
 CanvasRenderer:
   m_ObjectHideFlags: 0
