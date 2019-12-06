@@ -24,14 +24,13 @@ public class Mission : MonoBehaviour
     private int[] progress = new int[5];
 */
     //열매 수확 미션 진행도
-    public int fruitHarvestCount;
+    private int fruitHarvestCount;
 
     /*
         미션 목표
         max : 열매 수확 미션 수
     */
-    //private int[] fruitHarvestObjective = {10, 20, 30, 50, 100};
-    private int[] fruitHarvestObjective = {1, 2, 3, 5, 10};
+    private int[] fruitHarvestObjective = {10, 20, 30, 50, 100};
     /*
         열매 미션 달성 여부
         max : 열매 수확 미션 수
@@ -164,12 +163,13 @@ public class Mission : MonoBehaviour
                     UIManager.instance.ErrorMessage("파일 자동 저장 실패");
                 }
 
-                // 미션 창 갱신
-                UpdateMission();
+
 
                 break;
             }
         }
+        // 미션 창 갱신
+        UpdateMission();
     }
 
     /*

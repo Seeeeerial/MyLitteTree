@@ -32,15 +32,13 @@ public class GameManager : MonoBehaviour
     // 마지막으로 생성된 축복 시간으로 부터 지난 시간
     private float lastGenerateBlessingTime;
     // 축복 생성 주기(5분)
-    //private float ganerateBlessingTime = 300f;
-    private float ganerateBlessingTime = 20f;
+    private float ganerateBlessingTime = 300f;
 
     // 다음 계절 까지 남은 시간
     private float nextSeasonRemainingTime;
 
     // 한 계절 당 주기(15분)
-    //private float seasonalChangeTime = 900f;
-    private float seasonalChangeTime = 15f;
+    private float seasonalChangeTime = 900f;
     // 계절 이름(나중에 삭제)
     private string[] seasonName = {"봄", "여름", "가을", "겨울"};
 
